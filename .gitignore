@@ -1,0 +1,4 @@
+*.log
+*.pcap
+*.cap
+.DS_Store
