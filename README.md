@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="NullSec Pineapple Suite" width="800">
+  <img src="assets/pineapple-banner.png" alt="NullSec Pineapple Suite" width="800">
 </p>
 
 <h1 align="center">🍍 NullSec Pineapple Suite</h1>
