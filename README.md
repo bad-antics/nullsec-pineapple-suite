@@ -6,13 +6,13 @@
 
 <p align="center">
   <b>The Largest WiFi Pineapple Pager Payload Collection</b><br>
-  <i>101 payloads across 14 categories — more than any other third-party suite</i>
+  <i>106 payloads across 14 categories — more than any other third-party suite</i>
 </p>
 
 <p align="center">
   <a href="https://github.com/bad-antics/nullsec-pineapple-suite/stargazers"><img src="https://img.shields.io/github/stars/bad-antics/nullsec-pineapple-suite?style=for-the-badge&color=yellow" alt="Stars"></a>
   <a href="https://github.com/bad-antics/nullsec-pineapple-suite/network/members"><img src="https://img.shields.io/github/forks/bad-antics/nullsec-pineapple-suite?style=for-the-badge&color=blue" alt="Forks"></a>
-  <img src="https://img.shields.io/badge/Payloads-101+-purple?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Payloads-106+-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Categories-14-orange?style=for-the-badge">
   <img src="https://img.shields.io/badge/Platform-Pineapple%20Pager-red?style=for-the-badge">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/bad-antics/nullsec-pineapple-suite?style=for-the-badge&color=green" alt="License"></a>
@@ -30,16 +30,16 @@
 
 ## 🎯 Overview
 
-**NullSec Pineapple Suite** is the most comprehensive third-party payload collection for the [Hak5 WiFi Pineapple Pager](https://shop.hak5.org/products/wifi-pineapple). With **101 professional payloads** spanning 14 categories, it covers every aspect of WiFi security testing — from reconnaissance and interception to exfiltration and stealth operations.
+**NullSec Pineapple Suite** is the most comprehensive third-party payload collection for the [Hak5 WiFi Pineapple Pager](https://shop.hak5.org/products/wifi-pineapple). With **106 professional payloads** spanning 14 categories, it covers every aspect of WiFi security testing — from reconnaissance and interception to exfiltration and stealth operations.
 
 ### Why NullSec Suite?
 
 | Feature | NullSec Suite | Hak5 Official | Others |
 |---------|:------------:|:--------------:|:------:|
-| Total Payloads | **101** | 155 | 5-20 |
+| Total Payloads | **106** | 155 | 5-20 |
 | Categories | **14** | ~10 | 2-4 |
 | Attack Payloads | **16** | ~8 | 1-3 |
-| Recon Payloads | **17** | ~9 | 1-5 |
+| Recon Payloads | **18** | ~9 | 1-5 |
 | Stealth Suite | **9** | 0 | 0 |
 | Games | **3** | 8 | 0 |
 | One-Click Install | ✅ | ✅ | ❌ |
@@ -161,7 +161,7 @@ Fun and harmless WiFi pranks.
 | **SSIDPranks** | Creative SSID message broadcasting |
 | **WiFiConfuser** | Generate confusing network environments |
 
-### 🔍 Recon (17 payloads)
+### 🔍 Recon (18 payloads)
 The largest recon suite available for Pineapple Pager.
 
 | Payload | Description |
@@ -183,6 +183,7 @@ The largest recon suite available for Pineapple Pager.
 | **VendorHunt** | Identify devices by OUI/vendor lookup |
 | **WPSScanner** | WPS-enabled network discovery |
 | **WiFiAudit** | Comprehensive WiFi security audit |
+| **WiFiTimeline** | Temporal activity mapper — tracks AP/client appear/disappear events over time |
 
 ### 🔗 Remote Access (4 payloads)
 Remote control and persistent access.
@@ -220,7 +221,7 @@ The most comprehensive stealth suite for any Pineapple payload collection.
 | **TrafficMask** | Disguise Pineapple as normal device (7 profiles) |
 | **Wraith** | Channel-hopping stealth operations |
 
-### 🔧 Utility (11 payloads)
+### 🔧 Utility (13 payloads)
 System management and configuration tools.
 
 | Payload | Description |
@@ -236,8 +237,10 @@ System management and configuration tools.
 | **SystemInfo** | Comprehensive system information display |
 | **WaveRider** | Channel-hopping target pursuit |
 | **WordlistManager** | Wordlist management for cracking |
+| **ChannelCongestion** | Analyzes WiFi channel congestion, scores each channel, recommends optimal operating channel |
+| **HeartbeatMonitor** | Continuous health monitoring for long engagements — alerts on CPU, memory, temp, interface degradation |
 
-### 🛡️ Blue Team (5 payloads)
+### 🛡️ Blue Team (7 payloads)
 Defensive WiFi security monitoring and audit tools.
 
 | Payload | Description |
@@ -247,6 +250,8 @@ Defensive WiFi security monitoring and audit tools.
 | **RogueDetector** | Hunts for rogue APs, evil twins, and unauthorized SSIDs |
 | **SignalMapper** | Multi-point WiFi signal strength mapper for coverage analysis |
 | **AuditReporter** | Generates professional WiFi security audit reports with risk scoring |
+| **RogueUSBGuard** | Monitors USB ports for unauthorized device insertions — defends Pineapple from BadUSB/implants |
+| **DeauthForensics** | Captures deauth frames and fingerprints attacker tools (aireplay, mdk3/4, bully, etc.) |
 
 ---
 
@@ -325,12 +330,12 @@ nullsec-pineapple-suite/
 │   ├── games/         # 🎮 3 entertainment payloads
 │   ├── interception/  # 🕵️ 5 MITM/traffic interception
 │   ├── pranks/        # 🎪 5 harmless WiFi pranks
-│   ├── recon/         # 🔍 17 reconnaissance payloads
+│   ├── recon/         # 🔍 18 reconnaissance payloads
 │   ├── remote/        # 🔗 4 remote access tools
 │   ├── social/        # 🎭 5 social engineering
 │   ├── stealth/       # 👻 9 stealth operations
-│   ├── utility/       # 🔧 11 system management tools
-│   └── blue-team/     # 🛡️ 5 defensive security tools
+│   ├── utility/       # 🔧 13 system management tools
+│   └── blue-team/     # 🛡️ 7 defensive security tools
 ├── lib/               # Core libraries & helpers
 ├── theme/             # NullSec Pager theme
 ├── install.sh         # One-click installer
@@ -345,7 +350,7 @@ nullsec-pineapple-suite/
 | Project | Description |
 |---------|-------------|
 | [nullsec-pineapple-ops](https://github.com/bad-antics/nullsec-pineapple-ops) | WiFi Pineapple Ops Center — web-based C2 dashboard |
-| [nullsec-linux](https://github.com/bad-antics/nullsec-linux) | Security-focused Linux distro with 135+ tools |
+| [nullsec-linux](https://github.com/bad-antics/nullsec-linux) | Security-focused Linux distro with 140+ tools |
 | [nullsec-flipper-suite](https://github.com/bad-antics/nullsec-flipper-suite) | Flipper Zero payloads, animations & tools |
 | [nullsec-exploit](https://github.com/bad-antics/nullsec-exploit) | Exploit development framework |
 | [marshall](https://github.com/bad-antics/marshall) | NullSec Privacy Browser |
@@ -381,9 +386,9 @@ The authors assume no liability for misuse of these tools.
 
 | Metric | Value |
 |--------|-------|
-| Total Payloads | **101** |
+| Total Payloads | **106** |
 | Categories | **14** |
-| Largest Category | Recon (17) |
+| Largest Category | Recon (18) |
 | Average Payload Size | ~150 lines |
 | Platform | WiFi Pineapple Pager |
 | Last Updated | March 2026 |
@@ -397,6 +402,6 @@ MIT License — See [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  <b>NullSec</b> — <i>101 ways to own the airwaves</i> 🍍<br>
+  <b>NullSec</b> — <i>106 ways to own the airwaves</i> 🍍<br>
   <a href="https://github.com/bad-antics">github.com/bad-antics</a>
 </p>
