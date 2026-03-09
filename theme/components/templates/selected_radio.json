@@ -1,0 +1,7 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "radio",
+  "color": "hacker_green",
+  "label_color": "white"
+}

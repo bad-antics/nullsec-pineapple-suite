@@ -1,0 +1,12 @@
+{
+  "type": "keyboard",
+  "layout": "numeric",
+  "background_color": "nullsec_dark",
+  "key_color": "gray",
+  "selected_key_color": "nullsec_red",
+  "text_color": "white",
+  "font": "medium",
+  "key_repeat_delay_ms": 150,
+  "key_repeat_rate_ms": 30,
+  "render_cache": true
+}

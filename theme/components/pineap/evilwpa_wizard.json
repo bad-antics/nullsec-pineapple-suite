@@ -1,0 +1,22 @@
+{
+  "type": "wizard",
+  "title": "Evil WPA Setup",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "text_color": "white",
+  "font": "small",
+  "steps": [
+    {
+      "label": "Enter SSID",
+      "input_type": "string"
+    },
+    {
+      "label": "Enter Password",
+      "input_type": "string"
+    },
+    {
+      "label": "Confirm & Start",
+      "type": "confirmation"
+    }
+  ]
+}

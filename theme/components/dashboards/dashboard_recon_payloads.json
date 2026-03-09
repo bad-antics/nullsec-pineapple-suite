@@ -1,0 +1,13 @@
+{
+  "type": "menu",
+  "title": "Recon Payloads",
+  "title_color": "yellow",
+  "background_color": "black",
+  "status_bar": "recon",
+  "items_source": "recon_payload_categories",
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

@@ -1,0 +1,14 @@
+{
+  "type": "dialog",
+  "background_color": "black",
+  "border_color": "nullsec_red",
+  "border_width": 1,
+  "title": "Edit IP",
+  "title_color": "blue",
+  "text_color": "white",
+  "input_type": "ip",
+  "keyboard": "ip_keyboard_path",
+  "font": "small",
+  "transition_ms": 0,
+  "render_cache": true
+}

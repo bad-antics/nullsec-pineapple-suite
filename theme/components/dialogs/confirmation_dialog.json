@@ -1,0 +1,21 @@
+{
+  "type": "dialog",
+  "background_color": "black",
+  "border_color": "nullsec_red",
+  "border_width": 1,
+  "title_color": "yellow",
+  "text_color": "white",
+  "buttons": [
+    {
+      "label": "OK",
+      "color": "green"
+    },
+    {
+      "label": "Cancel",
+      "color": "red"
+    }
+  ],
+  "font": "small",
+  "transition_ms": 0,
+  "render_cache": true
+}

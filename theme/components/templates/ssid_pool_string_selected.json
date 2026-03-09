@@ -1,0 +1,7 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "text",
+  "color": "black",
+  "background": "cyan"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "menu",
+  "title": "Payloads",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "status_bar": "default",
+  "items_source": "payload_categories",
+  "item_color": "white",
+  "selected_color": "hacker_green",
+  "font": "small",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

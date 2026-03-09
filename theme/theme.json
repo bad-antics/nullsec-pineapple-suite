@@ -2,15 +2,13 @@
   "author": "NullSec",
   "theme_version": "1.0",
   "theme_framework_version": "0.5",
-
   "status_bars": {
     "default": "components/status_bars/status_bar.json",
     "network": "components/status_bars/status_bar_network.json",
     "recon": "components/status_bars/status_bar_recon.json",
     "min": "components/status_bars/status_bar_min.json",
-    "gps" : "components/status_bars/status_bar_gps.json"
+    "gps": "components/status_bars/status_bar_gps.json"
   },
-
   "generic_menus": {
     "tutorial": "components/tutorial.json",
     "os_licenses": "components/os_licenses.json",
@@ -21,13 +19,11 @@
     "regulatory": "components/settings/regulatory.json",
     "dashboard_path": "components/dashboards/nullsec_dashboard.json",
     "alerts_dashboard": "components/dashboards/dashboard_alerts.json",
-
     "pineap_pineap_submenu": "components/pineap/submenu_pineap_pineap.json",
     "pineap_evilwpa_submenu": "components/pineap/submenu_pineap_evilwpa.json",
     "pineap_filters_submenu": "components/pineap/submenu_pineap_filters.json",
     "pineap_openap_submenu": "components/pineap/submenu_pineap_openap.json",
     "pineap_ssidpool_submenu": "components/pineap/submenu_pineap_ssidpool.json",
-
     "settings_general_submenu": "components/settings/submenu_settings_general.json",
     "settings_display_submenu": "components/settings/submenu_settings_display.json",
     "settings_ringtone_submenu": "components/settings/submenu_settings_ringtone.json",
@@ -38,51 +34,39 @@
     "settings_updates_submenu": "components/settings/submenu_settings_updates.json",
     "settings_help_submenu": "components/settings/submenu_settings_help.json",
     "settings_about_submenu": "components/settings/submenu_settings_about.json",
-
     "recon_settings": "components/recon/recon_settings.json",
     "recon_band_settings": "components/recon/recon_band_settings.json",
     "recon_selected_ap_menu": "components/recon/recon_selected_ap_menu.json",
     "recon_selected_ap_client_menu": "components/recon/recon_selected_ap_client_menu.json",
-
     "pineap_menu": "components/dashboards/dashboard_pineap.json",
     "settings_menu": "components/dashboards/dashboard_settings.json"
   },
-
   "option_dialogs": {
-    "option_dialog":  "components/dialogs/ui_option_dialog.json",
-    "option_dialog_recon":  "components/dialogs/ui_option_dialog_recon.json",
-    "option_dialog_alerts":  "components/dialogs/ui_option_dialog_alerts.json",
-    "option_dialog_payloads":  "components/dialogs/ui_option_dialog_payloads.json",
-    "option_dialog_narrow":  "components/dialogs/ui_option_dialog_narrow.json"
+    "option_dialog": "components/dialogs/ui_option_dialog.json",
+    "option_dialog_recon": "components/dialogs/ui_option_dialog_recon.json",
+    "option_dialog_alerts": "components/dialogs/ui_option_dialog_alerts.json",
+    "option_dialog_payloads": "components/dialogs/ui_option_dialog_payloads.json",
+    "option_dialog_narrow": "components/dialogs/ui_option_dialog_narrow.json"
   },
-
-
   "launch_payload_dialog_path": "components/dialogs/launch_payload_dialog.json",
   "payloads_dashboard_path": "components/dashboards/dashboard_payloads.json",
   "payloads_for_category_list_path": "components/payloads_for_category_list.json",
   "payload_log_path": "components/payload_log.json",
-
   "filter_list_path": "components/filter_list.json",
   "pineap_ssid_pool_list_path": "components/pineap_ssid_pool_list.json",
   "pineap_clients_list_path": "components/pineap/submenu_pineap_clients.json",
-
   "alerts_dialog_submenu_path": "components/alert_payloads_for_category_list.json",
-
   "low_battery_alert_path": "components/alerts/low_battery_alert.json",
   "critical_battery_alert_path": "components/alerts/critical_battery_alert.json",
-
   "error_dialog_path": "components/alerts/alert_error_dialog.json",
   "alert_dialog_path": "components/alerts/alert_info_dialog.json",
   "warning_dialog_path": "components/alerts/alert_warning_dialog.json",
-
   "spinner_path": "components/spinner.json",
   "boot_spinner_path": "components/boot_animation.json",
-
   "keyboard_path": "components/keyboards/ui_keyboard.json",
   "number_keyboard_path": "components/keyboards/ui_keyboard_numeric.json",
   "ip_keyboard_path": "components/keyboards/ui_keyboard_ip.json",
   "mac_keyboard_path": "components/keyboards/ui_keyboard_hex.json",
-
   "recon_payloads_dashboard_path": "components/dashboards/dashboard_recon_payloads.json",
   "recon_payloads_for_category_list_path": "components/recon_payloads_for_category_list.json",
   "recon_dashboard_path": "components/dashboards/dashboard_recon.json",
@@ -90,14 +74,11 @@
     "recon_list": "components/recon/recon_results_list.json"
   },
   "recon_ap_clients_list_path": "components/recon/recon_ap_clients_list.json",
-
   "edit_string_dialog_path": "components/dialogs/edit_string_dialog.json",
   "edit_ip_dialog_path": "components/dialogs/edit_ip_dialog.json",
   "edit_mac_dialog_path": "components/dialogs/edit_mac_dialog.json",
   "edit_number_dialog_path": "components/dialogs/edit_number_dialog.json",
-
   "confirmation_dialog_path": "components/dialogs/confirmation_dialog.json",
-
   "setup_wizard_path": "components/setup_wizard.json",
   "checking_for_updates_path": "components/check_for_updates.json",
   "developer_menu_path": "components/developer_menu.json",
@@ -108,8 +89,7 @@
   "help_info_path": "assets/help_qr.png",
   "license_info_path": "assets/license_qr.png",
   "virtual_pager_info_path": "assets/virt_qr.png",
-
-  "toggle_templates" : {
+  "toggle_templates": {
     "toggle": "components/templates/toggle.json",
     "green_toggle": "components/templates/green_toggle.json",
     "disabled_toggle": "components/templates/disabled_toggle.json",
@@ -117,7 +97,6 @@
     "pineap_filter_mode": "components/templates/pineap_filter_mode.json",
     "disabled_pineap_filter_mode": "components/templates/disabled_pineap_filter_mode.json"
   },
-
   "string_templates": {
     "recon_payload_title": "components/templates/recon_payload_title.json",
     "recon_payload_title_selected": "components/templates/recon_payload_title_selected.json",
@@ -149,74 +128,219 @@
     "list_page_current": "components/templates/list_page_total.json",
     "list_pagination_label": "components/templates/list_pagination_label.json"
   },
-
   "radio_templates": {
     "radio": "components/templates/radio.json",
     "selected_radio": "components/templates/selected_radio.json"
   },
-
   "signal_templates": {
     "signal": "components/templates/signal.json",
     "selected_signal": "components/templates/selected_signal.json"
   },
-
-  "color_palette":{
-    "black":{ "r":0, "g":0, "b":0 },
-    "blue":{ "r":0, "g":200, "b":255 },
-    "red":{ "r":200, "g":0, "b":0 },
-    "dark_red":{ "r":100, "g":0, "b":0 },
-    "yellow":{ "r":255, "g":200, "b":0 },
-    "gray":{ "r":100, "g":100, "b":100 },
-    "green":{ "r":0, "g":255, "b":0 },
-    "dark_green":{ "r":0, "g":100, "b":0 },
-    "disabled_light_gray":{ "r":80, "g":80, "b":80 },
-    "disabled_dark_gray":{ "r":40, "g":40, "b":40 },
-    "medium_gray":{ "r":60, "g":60, "b":60 },
-    "white":{ "r":255, "g":255, "b":255 },
-
-    "orange":{ "r":255, "g":100, "b":0 },
-    "dark_orange":{ "r":150, "g":60, "b":0 },
-    "light_blue":{ "r":100, "g":200, "b":255 },
-    "cyan":{ "r":0, "g":255, "b":200 },
-    "dark_cyan":{ "r":0, "g":150, "b":100 },
-    "purple":{ "r":150, "g":0, "b":200 },
-    "dark_purple":{ "r":80, "g":0, "b":100 },
-    "magenta":{ "r":255, "g":0, "b":150 },
-    "dark_magenta":{ "r":150, "g":0, "b":80 },
-    "light_green":{ "r":100, "g":255, "b":100 },
-    "olive":{ "r":100, "g":100, "b":0 },
-    "dark_olive":{ "r":50, "g":50, "b":0 },
-    "brown":{ "r":100, "g":50, "b":0 },
-    "tan":{ "r":180, "g":150, "b":100 },
-    "teal":{ "r":0, "g":150, "b":150 },
-    "dark_teal":{ "r":0, "g":80, "b":80 },
-    "navy":{ "r":0, "g":0, "b":80 },
-    "light_yellow":{ "r":255, "g":255, "b":150 },
-    "soft_white":{ "r":200, "g":200, "b":200 },
-
-    "nullsec_red":{ "r":200, "g":0, "b":0 },
-    "nullsec_dark":{ "r":15, "g":15, "b":15 },
-    "nullsec_glow":{ "r":255, "g":50, "b":50 },
-    "matrix_green":{ "r":0, "g":255, "b":65 },
-    "hacker_green":{ "r":57, "g":255, "b":20 }
+  "color_palette": {
+    "black": {
+      "r": 0,
+      "g": 0,
+      "b": 0
+    },
+    "blue": {
+      "r": 0,
+      "g": 200,
+      "b": 255
+    },
+    "red": {
+      "r": 200,
+      "g": 0,
+      "b": 0
+    },
+    "dark_red": {
+      "r": 100,
+      "g": 0,
+      "b": 0
+    },
+    "yellow": {
+      "r": 255,
+      "g": 200,
+      "b": 0
+    },
+    "gray": {
+      "r": 100,
+      "g": 100,
+      "b": 100
+    },
+    "green": {
+      "r": 0,
+      "g": 255,
+      "b": 0
+    },
+    "dark_green": {
+      "r": 0,
+      "g": 100,
+      "b": 0
+    },
+    "disabled_light_gray": {
+      "r": 80,
+      "g": 80,
+      "b": 80
+    },
+    "disabled_dark_gray": {
+      "r": 40,
+      "g": 40,
+      "b": 40
+    },
+    "medium_gray": {
+      "r": 60,
+      "g": 60,
+      "b": 60
+    },
+    "white": {
+      "r": 255,
+      "g": 255,
+      "b": 255
+    },
+    "orange": {
+      "r": 255,
+      "g": 100,
+      "b": 0
+    },
+    "dark_orange": {
+      "r": 150,
+      "g": 60,
+      "b": 0
+    },
+    "light_blue": {
+      "r": 100,
+      "g": 200,
+      "b": 255
+    },
+    "cyan": {
+      "r": 0,
+      "g": 255,
+      "b": 200
+    },
+    "dark_cyan": {
+      "r": 0,
+      "g": 150,
+      "b": 100
+    },
+    "purple": {
+      "r": 150,
+      "g": 0,
+      "b": 200
+    },
+    "dark_purple": {
+      "r": 80,
+      "g": 0,
+      "b": 100
+    },
+    "magenta": {
+      "r": 255,
+      "g": 0,
+      "b": 150
+    },
+    "dark_magenta": {
+      "r": 150,
+      "g": 0,
+      "b": 80
+    },
+    "light_green": {
+      "r": 100,
+      "g": 255,
+      "b": 100
+    },
+    "olive": {
+      "r": 100,
+      "g": 100,
+      "b": 0
+    },
+    "dark_olive": {
+      "r": 50,
+      "g": 50,
+      "b": 0
+    },
+    "brown": {
+      "r": 100,
+      "g": 50,
+      "b": 0
+    },
+    "tan": {
+      "r": 180,
+      "g": 150,
+      "b": 100
+    },
+    "teal": {
+      "r": 0,
+      "g": 150,
+      "b": 150
+    },
+    "dark_teal": {
+      "r": 0,
+      "g": 80,
+      "b": 80
+    },
+    "navy": {
+      "r": 0,
+      "g": 0,
+      "b": 80
+    },
+    "light_yellow": {
+      "r": 255,
+      "g": 255,
+      "b": 150
+    },
+    "soft_white": {
+      "r": 200,
+      "g": 200,
+      "b": 200
+    },
+    "nullsec_red": {
+      "r": 200,
+      "g": 0,
+      "b": 0
+    },
+    "nullsec_dark": {
+      "r": 15,
+      "g": 15,
+      "b": 15
+    },
+    "nullsec_glow": {
+      "r": 255,
+      "g": 50,
+      "b": 50
+    },
+    "matrix_green": {
+      "r": 0,
+      "g": 255,
+      "b": 65
+    },
+    "hacker_green": {
+      "r": 57,
+      "g": 255,
+      "b": 20
+    }
   },
-
-  "_unused" : {
-    "commands" : {
+  "_unused": {
+    "commands": {
       "restart_pineapd": "service pineapd restart",
       "restart_networking": "service network restart",
       "reboot": "reboot",
       "log_temps": "/root/battest.sh > /tmp/temps.log",
       "restart_go": "service pineapplepager restart"
     },
-
     "payload_shortcuts": {
       "nullsec_autopwn": "/root/payloads/nullsec/attacks/nullsec-autopwn.sh",
       "nullsec_karma": "/root/payloads/nullsec/attacks/nullsec-karma.sh",
       "nullsec_deauth": "/root/payloads/nullsec/attacks/nullsec-deauth.sh"
     },
-
-    "simple_images": {
-    }
+    "simple_images": {}
+  },
+  "performance": {
+    "render_cache_enabled": true,
+    "transition_duration_ms": 0,
+    "scroll_acceleration": true,
+    "lazy_load_components": true,
+    "preload_dashboards": true,
+    "reduce_animations": false,
+    "max_cached_screens": 8,
+    "gc_interval_screens": 20
   }
 }

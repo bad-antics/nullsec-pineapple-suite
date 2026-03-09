@@ -1,0 +1,56 @@
+{
+  "type": "animation",
+  "background_color": "black",
+  "frame_delay_ms": 60,
+  "frames": [
+    {
+      "elements": [
+        {
+          "type": "text",
+          "x": 55,
+          "y": 60,
+          "text": "|",
+          "color": "nullsec_red",
+          "font": "large"
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "type": "text",
+          "x": 55,
+          "y": 60,
+          "text": "/",
+          "color": "nullsec_red",
+          "font": "large"
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "type": "text",
+          "x": 55,
+          "y": 60,
+          "text": "-",
+          "color": "nullsec_red",
+          "font": "large"
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "type": "text",
+          "x": 55,
+          "y": 60,
+          "text": "\\",
+          "color": "nullsec_red",
+          "font": "large"
+        }
+      ]
+    }
+  ],
+  "loop": true
+}

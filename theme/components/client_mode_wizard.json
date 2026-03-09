@@ -1,0 +1,26 @@
+{
+  "type": "wizard",
+  "title": "Client Mode",
+  "title_color": "blue",
+  "background_color": "black",
+  "text_color": "white",
+  "font": "small",
+  "steps": [
+    {
+      "label": "Scan Networks",
+      "action": "scan_wifi"
+    },
+    {
+      "label": "Select Network",
+      "type": "list"
+    },
+    {
+      "label": "Enter Password",
+      "input_type": "string"
+    },
+    {
+      "label": "Connect",
+      "type": "confirmation"
+    }
+  ]
+}

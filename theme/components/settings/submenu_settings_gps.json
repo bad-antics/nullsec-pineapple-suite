@@ -1,0 +1,26 @@
+{
+  "type": "menu",
+  "title_color": "gray",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small",
+  "title": "GPS",
+  "items": [
+    {
+      "label": "Enable GPS",
+      "action": "toggle",
+      "target": "gps_enabled"
+    },
+    {
+      "label": "GPS Status",
+      "action": "display",
+      "target": "gps_info"
+    },
+    {
+      "label": "Log GPS Data",
+      "action": "toggle",
+      "target": "gps_logging"
+    }
+  ]
+}

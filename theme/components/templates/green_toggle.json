@@ -1,0 +1,8 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "toggle",
+  "on_color": "green",
+  "off_color": "gray",
+  "label_color": "white"
+}

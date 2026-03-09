@@ -1,0 +1,31 @@
+{
+  "type": "menu",
+  "title_color": "gray",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small",
+  "title": "Network",
+  "items": [
+    {
+      "label": "Management AP",
+      "action": "navigate",
+      "target": "management_ap_wizard"
+    },
+    {
+      "label": "Client Mode",
+      "action": "navigate",
+      "target": "client_mode_wizard"
+    },
+    {
+      "label": "IP Address",
+      "action": "edit_ip",
+      "target": "ip_address"
+    },
+    {
+      "label": "SSH",
+      "action": "toggle",
+      "target": "ssh_enabled"
+    }
+  ]
+}

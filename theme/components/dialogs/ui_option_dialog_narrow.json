@@ -1,0 +1,13 @@
+{
+  "type": "dialog",
+  "background_color": "black",
+  "border_color": "nullsec_red",
+  "border_width": 1,
+  "width": 80,
+  "title_color": "nullsec_red",
+  "items_color": "white",
+  "selected_color": "hacker_green",
+  "font": "small",
+  "transition_ms": 0,
+  "render_cache": true
+}

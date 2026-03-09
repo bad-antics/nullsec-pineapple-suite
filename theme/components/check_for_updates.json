@@ -1,0 +1,21 @@
+{
+  "type": "screen",
+  "title": "Checking Updates",
+  "title_color": "blue",
+  "background_color": "black",
+  "elements": [
+    {
+      "type": "text",
+      "x": 15,
+      "y": 50,
+      "text": "Checking...",
+      "color": "white",
+      "font": "medium"
+    },
+    {
+      "type": "spinner",
+      "x": 55,
+      "y": 70
+    }
+  ]
+}

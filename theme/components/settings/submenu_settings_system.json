@@ -1,0 +1,30 @@
+{
+  "type": "menu",
+  "title_color": "gray",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small",
+  "title": "System",
+  "items": [
+    {
+      "label": "Factory Reset",
+      "action": "factory_reset"
+    },
+    {
+      "label": "Developer Mode",
+      "action": "navigate",
+      "target": "developer_menu"
+    },
+    {
+      "label": "Regulatory",
+      "action": "navigate",
+      "target": "regulatory"
+    },
+    {
+      "label": "Power Menu",
+      "action": "navigate",
+      "target": "power_menu"
+    }
+  ]
+}

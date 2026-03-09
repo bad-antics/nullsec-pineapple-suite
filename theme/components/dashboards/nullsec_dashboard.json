@@ -1,0 +1,44 @@
+{
+  "type": "menu",
+  "title": "NullSec",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "status_bar": "default",
+  "items": [
+    {
+      "label": "Recon",
+      "icon": "\ud83d\udce1",
+      "action": "navigate",
+      "target": "recon_dashboard"
+    },
+    {
+      "label": "PineAP",
+      "icon": "\ud83c\udf4d",
+      "action": "navigate",
+      "target": "pineap_menu"
+    },
+    {
+      "label": "Payloads",
+      "icon": "\ud83d\udca3",
+      "action": "navigate",
+      "target": "payloads_dashboard"
+    },
+    {
+      "label": "Alerts",
+      "icon": "\ud83d\udd14",
+      "action": "navigate",
+      "target": "alerts_dashboard"
+    },
+    {
+      "label": "Settings",
+      "icon": "\u2699\ufe0f",
+      "action": "navigate",
+      "target": "settings_menu"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "medium",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

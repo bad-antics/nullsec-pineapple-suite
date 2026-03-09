@@ -1,0 +1,13 @@
+{
+  "type": "menu",
+  "title": "Alerts",
+  "title_color": "orange",
+  "background_color": "black",
+  "status_bar": "default",
+  "items_source": "alert_categories",
+  "item_color": "white",
+  "selected_color": "orange",
+  "font": "small",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

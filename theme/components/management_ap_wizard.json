@@ -1,0 +1,26 @@
+{
+  "type": "wizard",
+  "title": "Management AP",
+  "title_color": "blue",
+  "background_color": "black",
+  "text_color": "white",
+  "font": "small",
+  "steps": [
+    {
+      "label": "SSID",
+      "input_type": "string"
+    },
+    {
+      "label": "Password",
+      "input_type": "string"
+    },
+    {
+      "label": "Channel",
+      "input_type": "number"
+    },
+    {
+      "label": "Confirm",
+      "type": "confirmation"
+    }
+  ]
+}

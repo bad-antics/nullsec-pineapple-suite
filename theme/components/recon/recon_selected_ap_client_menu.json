@@ -1,0 +1,23 @@
+{
+  "type": "menu",
+  "title_source": "selected_client_mac",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items": [
+    {
+      "label": "Deauth Client",
+      "action": "deauth_client"
+    },
+    {
+      "label": "Track Client",
+      "action": "track_client"
+    },
+    {
+      "label": "Details",
+      "action": "show_client_details"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "list",
+  "title": "Scan Results",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items_source": "recon_results",
+  "item_template": "string",
+  "selected_template": "selected_string",
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small",
+  "pagination": true,
+  "page_size": 5,
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

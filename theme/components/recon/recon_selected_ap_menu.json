@@ -1,0 +1,32 @@
+{
+  "type": "menu",
+  "title_source": "selected_ap_ssid",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items": [
+    {
+      "label": "Deauth",
+      "action": "deauth_ap"
+    },
+    {
+      "label": "Clone AP",
+      "action": "clone_ap"
+    },
+    {
+      "label": "View Clients",
+      "action": "navigate",
+      "target": "recon_ap_clients_list"
+    },
+    {
+      "label": "Track Signal",
+      "action": "track_signal"
+    },
+    {
+      "label": "Details",
+      "action": "show_ap_details"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small"
+}

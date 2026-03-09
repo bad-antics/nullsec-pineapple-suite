@@ -1,0 +1,14 @@
+{
+  "type": "alert",
+  "background_color": "black",
+  "border_color": "yellow",
+  "border_width": 2,
+  "title": "LOW BATTERY",
+  "title_color": "yellow",
+  "text_color": "white",
+  "icon": "\ud83e\udeab",
+  "auto_dismiss_ms": 5000,
+  "font": "medium",
+  "transition_ms": 0,
+  "render_cache": true
+}

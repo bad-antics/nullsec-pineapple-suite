@@ -1,0 +1,15 @@
+{
+  "type": "status_bar",
+  "background_color": "black",
+  "height": 8,
+  "elements": [
+    {
+      "type": "text",
+      "x": 100,
+      "y": 0,
+      "text_source": "battery",
+      "color": "green",
+      "font": "tiny"
+    }
+  ]
+}

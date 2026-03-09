@@ -1,0 +1,7 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "radio",
+  "color": "gray",
+  "label_color": "white"
+}

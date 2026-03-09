@@ -1,0 +1,28 @@
+{
+  "type": "wizard",
+  "title": "Setup",
+  "title_color": "hacker_green",
+  "background_color": "black",
+  "text_color": "white",
+  "font": "small",
+  "steps": [
+    {
+      "text": "Welcome to NullSec\nPineapple Suite\n\nInitial Setup"
+    },
+    {
+      "label": "Set Device Name",
+      "input_type": "string"
+    },
+    {
+      "label": "Management AP SSID",
+      "input_type": "string"
+    },
+    {
+      "label": "Management AP Pass",
+      "input_type": "string"
+    },
+    {
+      "text": "Setup complete!\n\nDevice will reboot."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "toggle",
+  "on_color": "nullsec_red",
+  "off_color": "gray",
+  "label_color": "white",
+  "labels": [
+    "Deny",
+    "Allow"
+  ]
+}

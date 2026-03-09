@@ -1,0 +1,31 @@
+{
+  "type": "status_bar",
+  "background_color": "nullsec_dark",
+  "height": 12,
+  "elements": [
+    {
+      "type": "text",
+      "x": 2,
+      "y": 1,
+      "text_source": "time",
+      "color": "gray",
+      "font": "tiny"
+    },
+    {
+      "type": "text",
+      "x": 90,
+      "y": 1,
+      "text_source": "battery",
+      "color": "green",
+      "font": "tiny"
+    },
+    {
+      "type": "text",
+      "x": 30,
+      "y": 1,
+      "text_source": "recon_status",
+      "color": "yellow",
+      "font": "tiny"
+    }
+  ]
+}

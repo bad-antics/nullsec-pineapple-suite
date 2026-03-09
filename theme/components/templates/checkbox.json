@@ -1,0 +1,8 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "checkbox",
+  "checked_color": "hacker_green",
+  "unchecked_color": "gray",
+  "label_color": "white"
+}

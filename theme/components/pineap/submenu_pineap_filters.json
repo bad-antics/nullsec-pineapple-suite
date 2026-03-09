@@ -1,0 +1,28 @@
+{
+  "type": "menu",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "small",
+  "title": "Filters",
+  "items": [
+    {
+      "label": "Client Filter",
+      "action": "toggle",
+      "target": "client_filter"
+    },
+    {
+      "label": "SSID Filter",
+      "action": "toggle",
+      "target": "ssid_filter"
+    },
+    {
+      "label": "Filter Mode",
+      "action": "cycle",
+      "target": "filter_mode"
+    }
+  ],
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

@@ -1,0 +1,25 @@
+{
+  "type": "menu",
+  "title_color": "gray",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small",
+  "title": "Updates",
+  "items": [
+    {
+      "label": "Check for Updates",
+      "action": "check_updates"
+    },
+    {
+      "label": "Auto-update",
+      "action": "toggle",
+      "target": "auto_update"
+    },
+    {
+      "label": "Current Version",
+      "action": "display",
+      "target": "version"
+    }
+  ]
+}

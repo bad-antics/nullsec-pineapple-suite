@@ -1,0 +1,25 @@
+{
+  "type": "menu",
+  "title": "Power",
+  "title_color": "red",
+  "background_color": "black",
+  "items": [
+    {
+      "label": "Reboot",
+      "action": "reboot"
+    },
+    {
+      "label": "Shutdown",
+      "action": "shutdown"
+    },
+    {
+      "label": "Cancel",
+      "action": "back"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "red",
+  "font": "medium",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

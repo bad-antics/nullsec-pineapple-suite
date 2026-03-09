@@ -1,0 +1,12 @@
+{
+  "type": "list",
+  "title_source": "recon_category_name",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items_source": "recon_category_payloads",
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small",
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

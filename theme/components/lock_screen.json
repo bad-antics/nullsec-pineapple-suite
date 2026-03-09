@@ -1,0 +1,30 @@
+{
+  "type": "screen",
+  "background_color": "black",
+  "elements": [
+    {
+      "type": "text",
+      "x": 25,
+      "y": 40,
+      "text": "LOCKED",
+      "color": "nullsec_red",
+      "font": "large"
+    },
+    {
+      "type": "text",
+      "x": 15,
+      "y": 70,
+      "text": "Press buttons",
+      "color": "gray",
+      "font": "small"
+    },
+    {
+      "type": "text",
+      "x": 20,
+      "y": 85,
+      "text": "to unlock",
+      "color": "gray",
+      "font": "small"
+    }
+  ]
+}

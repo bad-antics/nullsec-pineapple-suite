@@ -1,0 +1,64 @@
+{
+  "type": "menu",
+  "title": "Settings",
+  "title_color": "gray",
+  "background_color": "black",
+  "status_bar": "default",
+  "items": [
+    {
+      "label": "General",
+      "action": "navigate",
+      "target": "settings_general_submenu"
+    },
+    {
+      "label": "Display",
+      "action": "navigate",
+      "target": "settings_display_submenu"
+    },
+    {
+      "label": "Ringtone",
+      "action": "navigate",
+      "target": "settings_ringtone_submenu"
+    },
+    {
+      "label": "Network",
+      "action": "navigate",
+      "target": "settings_network_submenu"
+    },
+    {
+      "label": "System",
+      "action": "navigate",
+      "target": "settings_system_submenu"
+    },
+    {
+      "label": "Date/Time",
+      "action": "navigate",
+      "target": "settings_datetime_submenu"
+    },
+    {
+      "label": "GPS",
+      "action": "navigate",
+      "target": "settings_gps_submenu"
+    },
+    {
+      "label": "Updates",
+      "action": "navigate",
+      "target": "settings_updates_submenu"
+    },
+    {
+      "label": "Help",
+      "action": "navigate",
+      "target": "settings_help_submenu"
+    },
+    {
+      "label": "About",
+      "action": "navigate",
+      "target": "settings_about_submenu"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

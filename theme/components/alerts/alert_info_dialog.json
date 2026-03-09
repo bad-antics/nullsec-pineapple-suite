@@ -1,0 +1,19 @@
+{
+  "type": "alert",
+  "background_color": "black",
+  "border_color": "blue",
+  "border_width": 1,
+  "title": "INFO",
+  "title_color": "blue",
+  "text_color": "white",
+  "buttons": [
+    {
+      "label": "OK",
+      "color": "blue"
+    }
+  ],
+  "font": "small",
+  "transition_ms": 0,
+  "auto_dismiss_ms": 3000,
+  "render_cache": true
+}

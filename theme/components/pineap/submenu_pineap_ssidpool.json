@@ -1,0 +1,12 @@
+{
+  "type": "menu",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "small",
+  "title": "SSID Pool",
+  "items_source": "ssid_pool",
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

@@ -1,0 +1,42 @@
+{
+  "type": "menu",
+  "title": "Recon",
+  "title_color": "yellow",
+  "background_color": "black",
+  "status_bar": "recon",
+  "items": [
+    {
+      "label": "Start Scan",
+      "action": "recon_start"
+    },
+    {
+      "label": "Stop Scan",
+      "action": "recon_stop"
+    },
+    {
+      "label": "Results",
+      "action": "navigate",
+      "target": "recon_list"
+    },
+    {
+      "label": "Settings",
+      "action": "navigate",
+      "target": "recon_settings"
+    },
+    {
+      "label": "Band Settings",
+      "action": "navigate",
+      "target": "recon_band_settings"
+    },
+    {
+      "label": "Recon Payloads",
+      "action": "navigate",
+      "target": "recon_payloads_dashboard"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

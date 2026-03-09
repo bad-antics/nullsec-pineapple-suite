@@ -1,0 +1,12 @@
+{
+  "type": "list",
+  "title": "AP Clients",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items_source": "ap_clients",
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small",
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

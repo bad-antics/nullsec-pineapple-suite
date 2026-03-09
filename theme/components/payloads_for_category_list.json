@@ -1,0 +1,16 @@
+{
+  "type": "list",
+  "title_source": "category_name",
+  "title_color": "hacker_green",
+  "background_color": "black",
+  "items_source": "category_payloads",
+  "item_template": "payload_name",
+  "selected_template": "payload_name_selected",
+  "item_color": "white",
+  "selected_color": "hacker_green",
+  "font": "small",
+  "pagination": true,
+  "page_size": 5,
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

@@ -1,0 +1,61 @@
+#!/bin/sh /etc/rc.common
+# NullSec FastBoot - Persistent Boot Optimizer for Pineapple Pager
+# Author: bad-antics
+# Installed to /etc/init.d/nullsec-fastboot
+# Runs at boot to minimize startup time and maximize UI responsiveness
+
+START=10
+STOP=99
+
+start() {
+    logger -t nullsec "FastBoot: Starting optimization..."
+
+    # ── CPU: Performance governor ──────────────────────
+    for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
+        [ -f "$cpu" ] && echo performance > "$cpu" 2>/dev/null
+    done
+
+    # ── Memory: Optimize VM parameters ─────────────────
+    echo 10 > /proc/sys/vm/swappiness 2>/dev/null
+    echo 50 > /proc/sys/vm/vfs_cache_pressure 2>/dev/null
+    echo 1 > /proc/sys/vm/overcommit_memory 2>/dev/null
+
+    # ── I/O: Optimize MMC performance ──────────────────
+    for dev in /sys/block/mmcblk*/queue; do
+        [ -d "$dev" ] && {
+            echo deadline > "$dev/scheduler" 2>/dev/null
+            echo 256 > "$dev/read_ahead_kb" 2>/dev/null
+            echo 0 > "$dev/iostats" 2>/dev/null
+        }
+    done
+
+    # ── Network: Disable power save, fast WiFi ─────────
+    iw dev wlan0 set power_save off 2>/dev/null
+    iw dev wlan1 set power_save off 2>/dev/null
+
+    # ── Disable non-essential services ─────────────────
+    for svc in uhttpd collectd ntpd; do
+        /etc/init.d/$svc stop 2>/dev/null
+        /etc/init.d/$svc disable 2>/dev/null
+    done
+
+    # ── Pre-cache aircrack-ng binaries ─────────────────
+    for bin in airodump-ng aireplay-ng airmon-ng aircrack-ng; do
+        which "$bin" >/dev/null 2>&1
+    done
+
+    # ── Drop filesystem caches after boot ──────────────
+    (sleep 30 && sync && echo 1 > /proc/sys/vm/drop_caches 2>/dev/null) &
+
+    logger -t nullsec "FastBoot: Optimization complete"
+}
+
+stop() {
+    # Restore defaults
+    for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
+        [ -f "$cpu" ] && echo ondemand > "$cpu" 2>/dev/null
+    done
+    echo 60 > /proc/sys/vm/swappiness 2>/dev/null
+    echo 100 > /proc/sys/vm/vfs_cache_pressure 2>/dev/null
+    logger -t nullsec "FastBoot: Defaults restored"
+}

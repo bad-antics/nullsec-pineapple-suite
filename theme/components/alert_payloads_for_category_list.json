@@ -1,0 +1,12 @@
+{
+  "type": "list",
+  "title_source": "alert_category_name",
+  "title_color": "orange",
+  "background_color": "black",
+  "items_source": "alert_category_payloads",
+  "item_color": "white",
+  "selected_color": "orange",
+  "font": "small",
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

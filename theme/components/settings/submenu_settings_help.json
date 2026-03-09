@@ -1,0 +1,26 @@
+{
+  "type": "menu",
+  "title_color": "gray",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small",
+  "title": "Help",
+  "items": [
+    {
+      "label": "Quick Start Guide",
+      "action": "display",
+      "target": "help_info"
+    },
+    {
+      "label": "Documentation",
+      "action": "display",
+      "target": "help_qr"
+    },
+    {
+      "label": "Community",
+      "action": "display",
+      "target": "community_qr"
+    }
+  ]
+}

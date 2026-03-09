@@ -1,0 +1,31 @@
+{
+  "type": "menu",
+  "title": "Recon Settings",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items": [
+    {
+      "label": "Scan Duration",
+      "action": "edit_number",
+      "target": "scan_duration"
+    },
+    {
+      "label": "Channel Hop",
+      "action": "toggle",
+      "target": "channel_hop"
+    },
+    {
+      "label": "Passive Mode",
+      "action": "toggle",
+      "target": "passive_mode"
+    },
+    {
+      "label": "Save Results",
+      "action": "toggle",
+      "target": "save_results"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small"
+}

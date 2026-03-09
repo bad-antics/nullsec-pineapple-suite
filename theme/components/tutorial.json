@@ -1,0 +1,28 @@
+{
+  "type": "wizard",
+  "title": "Quick Start",
+  "title_color": "hacker_green",
+  "background_color": "black",
+  "text_color": "white",
+  "font": "small",
+  "steps": [
+    {
+      "text": "Welcome to NullSec\nPineapple Suite!\n\nPress > to continue"
+    },
+    {
+      "text": "Use UP/DOWN to\nnavigate menus.\n\nPress OK to select."
+    },
+    {
+      "text": "Recon: Scan for\nnearby networks."
+    },
+    {
+      "text": "PineAP: Run\nattack modules."
+    },
+    {
+      "text": "Payloads: Launch\ncustom scripts."
+    },
+    {
+      "text": "Setup complete!\n\nHappy hacking! \ud83c\udf4d"
+    }
+  ]
+}

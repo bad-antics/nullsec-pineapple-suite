@@ -1,0 +1,10 @@
+{
+  "type": "menu",
+  "title": "Regulatory",
+  "title_color": "gray",
+  "background_color": "black",
+  "items_source": "regulatory_domains",
+  "item_color": "white",
+  "selected_color": "gray",
+  "font": "small"
+}

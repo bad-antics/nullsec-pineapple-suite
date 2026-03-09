@@ -1,0 +1,44 @@
+{
+  "type": "menu",
+  "title": "PineAP",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "status_bar": "default",
+  "items": [
+    {
+      "label": "PineAP Settings",
+      "action": "navigate",
+      "target": "pineap_pineap_submenu"
+    },
+    {
+      "label": "Evil WPA",
+      "action": "navigate",
+      "target": "pineap_evilwpa_submenu"
+    },
+    {
+      "label": "Filters",
+      "action": "navigate",
+      "target": "pineap_filters_submenu"
+    },
+    {
+      "label": "Open AP",
+      "action": "navigate",
+      "target": "pineap_openap_submenu"
+    },
+    {
+      "label": "SSID Pool",
+      "action": "navigate",
+      "target": "pineap_ssidpool_submenu"
+    },
+    {
+      "label": "Clients",
+      "action": "navigate",
+      "target": "pineap_clients_list"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "small",
+  "scroll_speed_ms": 30,
+  "render_cache": true
+}

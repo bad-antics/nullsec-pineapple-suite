@@ -1,0 +1,14 @@
+{
+  "type": "alert",
+  "background_color": "dark_red",
+  "border_color": "red",
+  "border_width": 2,
+  "title": "CRITICAL BATTERY",
+  "title_color": "red",
+  "text_color": "white",
+  "icon": "\ud83d\udd0b",
+  "auto_dismiss_ms": 3000,
+  "font": "medium",
+  "transition_ms": 0,
+  "render_cache": true
+}

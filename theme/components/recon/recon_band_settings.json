@@ -1,0 +1,21 @@
+{
+  "type": "menu",
+  "title": "Band Settings",
+  "title_color": "yellow",
+  "background_color": "black",
+  "items": [
+    {
+      "label": "2.4 GHz",
+      "action": "toggle",
+      "target": "band_2ghz"
+    },
+    {
+      "label": "5 GHz",
+      "action": "toggle",
+      "target": "band_5ghz"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "yellow",
+  "font": "small"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "text_viewer",
+  "title": "Licenses",
+  "title_color": "gray",
+  "background_color": "black",
+  "text_color": "gray",
+  "font": "tiny",
+  "text": "NullSec Pineapple Suite\n(c) 2024-2026 bad-antics\nMIT License\n\nWiFi Pineapple\n(c) Hak5 LLC"
+}

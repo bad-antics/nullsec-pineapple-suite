@@ -1,0 +1,33 @@
+{
+  "type": "menu",
+  "title": "Developer",
+  "title_color": "purple",
+  "background_color": "black",
+  "items": [
+    {
+      "label": "USB Serial",
+      "action": "toggle",
+      "target": "usb_serial"
+    },
+    {
+      "label": "Debug Log",
+      "action": "toggle",
+      "target": "debug_log"
+    },
+    {
+      "label": "Shell Access",
+      "action": "launch_shell"
+    },
+    {
+      "label": "Theme Editor",
+      "action": "theme_editor"
+    },
+    {
+      "label": "Reboot to Recovery",
+      "action": "recovery_reboot"
+    }
+  ],
+  "item_color": "white",
+  "selected_color": "purple",
+  "font": "small"
+}

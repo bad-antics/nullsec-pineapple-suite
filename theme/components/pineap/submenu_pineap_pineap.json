@@ -1,0 +1,36 @@
+{
+  "type": "menu",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "small",
+  "title": "PineAP",
+  "items": [
+    {
+      "label": "Enable PineAP",
+      "action": "toggle",
+      "target": "pineap_enabled"
+    },
+    {
+      "label": "Beacon Response",
+      "action": "toggle",
+      "target": "beacon_response"
+    },
+    {
+      "label": "Capture SSIDs",
+      "action": "toggle",
+      "target": "capture_ssids"
+    },
+    {
+      "label": "Broadcast Pool",
+      "action": "toggle",
+      "target": "broadcast_pool"
+    },
+    {
+      "label": "Source MAC",
+      "action": "edit",
+      "target": "source_mac"
+    }
+  ]
+}

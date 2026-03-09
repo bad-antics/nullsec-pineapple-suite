@@ -1,0 +1,12 @@
+{
+  "type": "list",
+  "title": "Filters",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "items_source": "filters",
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "small",
+  "scroll_speed_ms": 25,
+  "render_cache": true
+}

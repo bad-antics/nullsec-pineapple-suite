@@ -1,0 +1,19 @@
+{
+  "type": "alert",
+  "background_color": "black",
+  "border_color": "yellow",
+  "border_width": 1,
+  "title": "WARNING",
+  "title_color": "yellow",
+  "text_color": "white",
+  "buttons": [
+    {
+      "label": "OK",
+      "color": "yellow"
+    }
+  ],
+  "font": "small",
+  "transition_ms": 0,
+  "auto_dismiss_ms": 3000,
+  "render_cache": true
+}

@@ -1,0 +1,8 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "toggle",
+  "on_color": "disabled_light_gray",
+  "off_color": "disabled_dark_gray",
+  "label_color": "disabled_light_gray"
+}

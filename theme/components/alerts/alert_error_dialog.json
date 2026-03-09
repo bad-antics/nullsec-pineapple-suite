@@ -1,0 +1,20 @@
+{
+  "type": "alert",
+  "background_color": "black",
+  "border_color": "red",
+  "border_width": 2,
+  "title": "ERROR",
+  "title_color": "red",
+  "text_color": "white",
+  "icon": "\u26a0\ufe0f",
+  "buttons": [
+    {
+      "label": "OK",
+      "color": "red"
+    }
+  ],
+  "font": "small",
+  "transition_ms": 0,
+  "auto_dismiss_ms": 3000,
+  "render_cache": true
+}

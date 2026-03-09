@@ -1,0 +1,10 @@
+{
+  "type": "menu",
+  "title_color": "nullsec_red",
+  "background_color": "black",
+  "item_color": "white",
+  "selected_color": "nullsec_red",
+  "font": "small",
+  "title": "Connected Clients",
+  "items_source": "connected_clients"
+}

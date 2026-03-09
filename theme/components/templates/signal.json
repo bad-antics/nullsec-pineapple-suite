@@ -1,0 +1,7 @@
+{
+  "type": "template",
+  "font": "small",
+  "element": "signal_bar",
+  "color": "green",
+  "background": "gray"
+}

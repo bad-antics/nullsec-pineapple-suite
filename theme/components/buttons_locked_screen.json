@@ -1,0 +1,22 @@
+{
+  "type": "screen",
+  "background_color": "black",
+  "elements": [
+    {
+      "type": "text",
+      "x": 15,
+      "y": 50,
+      "text": "Buttons Locked",
+      "color": "yellow",
+      "font": "medium"
+    },
+    {
+      "type": "text",
+      "x": 10,
+      "y": 75,
+      "text": "Hold OK 3sec",
+      "color": "gray",
+      "font": "small"
+    }
+  ]
+}

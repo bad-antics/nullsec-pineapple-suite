@@ -1,0 +1,9 @@
+{
+  "type": "log_viewer",
+  "title": "Payload Log",
+  "title_color": "hacker_green",
+  "background_color": "black",
+  "text_color": "green",
+  "font": "tiny",
+  "auto_scroll": true
+}
