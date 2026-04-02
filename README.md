@@ -6,13 +6,13 @@
 
 <p align="center">
   <b>The Largest WiFi Pineapple Pager Payload Collection</b><br>
-  <i>106 payloads across 14 categories — more than any other third-party suite</i>
+  <i>125 payloads across 14 categories — more than any other third-party suite</i>
 </p>
 
 <p align="center">
   <a href="https://github.com/bad-antics/nullsec-pineapple-suite/stargazers"><img src="https://img.shields.io/github/stars/bad-antics/nullsec-pineapple-suite?style=for-the-badge&color=yellow" alt="Stars"></a>
   <a href="https://github.com/bad-antics/nullsec-pineapple-suite/network/members"><img src="https://img.shields.io/github/forks/bad-antics/nullsec-pineapple-suite?style=for-the-badge&color=blue" alt="Forks"></a>
-  <img src="https://img.shields.io/badge/Payloads-106+-purple?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Payloads-125+-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Categories-14-orange?style=for-the-badge">
   <img src="https://img.shields.io/badge/Platform-Pineapple%20Pager-red?style=for-the-badge">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/bad-antics/nullsec-pineapple-suite?style=for-the-badge&color=green" alt="License"></a>
@@ -30,19 +30,23 @@
 
 ## 🎯 Overview
 
-**NullSec Pineapple Suite** is the most comprehensive third-party payload collection for the [Hak5 WiFi Pineapple Pager](https://shop.hak5.org/products/wifi-pineapple). With **106 professional payloads** spanning 14 categories, it covers every aspect of WiFi security testing — from reconnaissance and interception to exfiltration and stealth operations.
+**NullSec Pineapple Suite** is the most comprehensive third-party payload collection for the [Hak5 WiFi Pineapple Pager](https://shop.hak5.org/products/wifi-pineapple). With **125 professional payloads** spanning 14 categories, it covers every aspect of WiFi security testing — from reconnaissance and interception to exfiltration and stealth operations.
 
 ### Why NullSec Suite?
 
 | Feature | NullSec Suite | Hak5 Official | Others |
 |---------|:------------:|:--------------:|:------:|
-| Total Payloads | **106** | 155 | 5-20 |
+| Total Payloads | **125** | 155 | 5-20 |
 | Categories | **14** | ~10 | 2-4 |
-| Attack Payloads | **16** | ~8 | 1-3 |
-| Recon Payloads | **18** | ~9 | 1-5 |
-| Stealth Suite | **9** | 0 | 0 |
-| Games | **3** | 8 | 0 |
+| Attack Payloads | **19** | ~8 | 1-3 |
+| Recon Payloads | **23** | ~9 | 1-5 |
+| Stealth Suite | **11** | 0 | 0 |
+| Blue Team | **8** | 0 | 0 |
+| Games | **4** | 8 | 0 |
+| NullSec Theme | ✅ (112 components) | ❌ | ❌ |
+| FastBoot Optimizer | ✅ | ❌ | ❌ |
 | One-Click Install | ✅ | ✅ | ❌ |
+| Factory Restore Script | ✅ | ❌ | ❌ |
 | Active Development | ✅ | ✅ | ❌ |
 
 ---
@@ -76,7 +80,7 @@ Real-time monitoring and alerting for security events.
 | **BandwidthAlert** | Monitors bandwidth usage with configurable thresholds |
 | **GeoFenceAlert** | GPS-based geofence monitoring for device tracking |
 
-### ⚔️ Attack (16 payloads)
+### ⚔️ Attack (19 payloads)
 Offensive WiFi security testing tools.
 
 | Payload | Description |
@@ -92,52 +96,58 @@ Offensive WiFi security testing tools.
 | **HotspotHijack** | Hijack existing hotspot connections |
 | **KarmaAttack** | Respond to all probe requests |
 | **MassDeauth** | Mass deauthentication of all nearby clients |
+| **PixieDust** | WPS Pixie Dust offline attack |
+| **PMKIDGrabber** | Grab PMKID hashes without client interaction |
 | **ProbeAttack** | Exploit probe requests to lure clients |
 | **Siren** | Audio-visual attack alerts |
 | **TargetedDeauth** | Precision deauth of specific clients |
 | **WPSBruteforce** | WPS PIN brute force with Pixie Dust |
 | **WifiJammer** | Broad-spectrum WiFi jamming |
 
-### 🤖 Automation (4 payloads)
+### 🤖 Automation (5 payloads)
 Set-and-forget automated attack chains.
 
 | Payload | Description |
 |---------|-------------|
 | **AutoPwn** | Fully automated: scan → identify → exploit chain |
 | **Reaper** | Automated client harvesting and processing |
+| **ScheduledScan** | Schedule recurring network scans |
 | **TimeBomb** | Schedule attacks for delayed execution |
 | **ZeroClick** | Zero-interaction automated exploitation |
 
-### 🔐 Capture (6 payloads)
+### 🔐 Capture (8 payloads)
 Credential and handshake capture tools.
 
 | Payload | Description |
 |---------|-------------|
 | **CredSniffer** | Real-time credential sniffing from traffic |
+| **EAPHarvester** | Harvest EAP/enterprise credentials |
 | **HandshakeHunter** | Automated WPA/WPA2 handshake capture |
 | **PMKIDCapture** | PMKID-based WPA capture (clientless) |
 | **PacketReplay** | Capture and replay network packets |
 | **USBCredStealer** | USB-based credential extraction |
 | **WPACracker** | On-device WPA handshake cracking |
 
-### 📤 Exfiltration (4 payloads)
+### 📤 Exfiltration (5 payloads)
 Data extraction and loot management.
 
 | Payload | Description |
 |---------|-------------|
 | **DataVacuum** | Extract URLs, cookies, credentials from traffic |
 | **CloudExfil** | Upload loot to cloud storage (Dropbox, webhooks) |
-| **LootSync** | Sync all captured loot to USB storage |
 | **DNSExfil** | Covert data exfiltration via DNS tunneling |
+| **ICMPTunnel** | Covert data exfiltration via ICMP tunneling |
+| **LootSync** | Sync all captured loot to USB storage |
 
-### 🎮 Games (3 payloads)
+### 🎮 Games (4 payloads)
 Entertainment for downtime during engagements.
 
 | Payload | Description |
 |---------|-------------|
-| **PagerPong** | Text-based Pong game on Pager display |
-| **WarGames** | WOPR-style hacking simulation (4 game modes) |
 | **NumberCracker** | Number guessing game with hacking theme |
+| **PagerPong** | Text-based Pong game on Pager display |
+| **SignalHunt** | WiFi signal strength treasure hunt |
+| **WarGames** | WOPR-style hacking simulation (4 game modes) |
 
 ### 🕵️ Interception (5 payloads)
 Man-in-the-middle and traffic interception.
@@ -161,11 +171,12 @@ Fun and harmless WiFi pranks.
 | **SSIDPranks** | Creative SSID message broadcasting |
 | **WiFiConfuser** | Generate confusing network environments |
 
-### 🔍 Recon (18 payloads)
+### 🔍 Recon (23 payloads)
 The largest recon suite available for Pineapple Pager.
 
 | Payload | Description |
 |---------|-------------|
+| **5GHzHunter** | Discover and enumerate 5 GHz networks |
 | **BluetoothScanner** | Classic BT + BLE device discovery |
 | **ClientTracker** | Track client devices across networks |
 | **DeviceFingerprint** | OS and device fingerprinting via WiFi |
@@ -181,6 +192,7 @@ The largest recon suite available for Pineapple Pager.
 | **SpectrumAnalyzer** | Channel utilization and interference analysis |
 | **StealthRecon** | Low-profile reconnaissance |
 | **VendorHunt** | Identify devices by OUI/vendor lookup |
+| **WAP3Scanner** | WPA3/SAE network scanner |
 | **WPSScanner** | WPS-enabled network discovery |
 | **WiFiAudit** | Comprehensive WiFi security audit |
 | **WiFiTimeline** | Temporal activity mapper — tracks AP/client appear/disappear events over time |
@@ -195,7 +207,7 @@ Remote control and persistent access.
 | **PagerLink** | Remote Pager UI access via SSH tunnel |
 | **VPNConnect** | WireGuard/OpenVPN connectivity |
 
-### 🎭 Social Engineering (5 payloads)
+### 🎭 Social Engineering (6 payloads)
 Social engineering and phishing tools.
 
 | Payload | Description |
@@ -205,8 +217,9 @@ Social engineering and phishing tools.
 | **NullSecDeface** | Custom web page injection |
 | **NullSecPortal** | NullSec-branded captive portal |
 | **PortalMaster** | Advanced portal template management |
+| **SurveyPortal** | Fake survey portal for data collection |
 
-### 👻 Stealth (9 payloads)
+### 👻 Stealth (11 payloads)
 The most comprehensive stealth suite for any Pineapple payload collection.
 
 | Payload | Description |
@@ -214,77 +227,129 @@ The most comprehensive stealth suite for any Pineapple payload collection.
 | **GhostNetwork** | Invisible C2 channel using null SSID |
 | **Honeypot** | Decoy AP with attacker logging |
 | **LogWiper** | Secure log wiping (3-pass overwrite) |
+| **MACRotator** | Automatic MAC address rotation |
 | **Mimic** | Clone and impersonate legitimate APs |
 | **Phantom** | Appear/disappear on command |
 | **Poltergeist** | Intermittent interference causing confusion |
+| **SignalCloak** | Mask signal presence and RF signatures |
 | **Specter** | Long-duration low-profile surveillance |
 | **TrafficMask** | Disguise Pineapple as normal device (7 profiles) |
 | **Wraith** | Channel-hopping stealth operations |
 
-### 🔧 Utility (13 payloads)
+### 🔧 Utility (15 payloads)
 System management and configuration tools.
 
 | Payload | Description |
 |---------|-------------|
 | **BootOptimizer** | Optimize Pineapple boot performance |
+| **ChannelCongestion** | Analyzes WiFi channel congestion, scores each channel, recommends optimal operating channel |
 | **FirewallManager** | Manage iptables rules from Pager UI |
+| **HeartbeatMonitor** | Continuous health monitoring for long engagements — alerts on CPU, memory, temp, interface degradation |
 | **MACChanger** | Change MAC addresses (random/specific/vendor) |
 | **NullSecConfig** | NullSec Suite configuration management |
 | **PackageManager** | Manage opkg packages from Pager |
+| **PayloadUpdater** | Update NullSec payloads from GitHub |
+| **QuickDiag** | Quick device diagnostics and health check |
 | **RangeExtender** | Extend WiFi range with repeater mode |
 | **ScheduleTask** | Cron-based payload scheduling |
 | **SpeedTest** | Internet connection speed testing |
 | **SystemInfo** | Comprehensive system information display |
 | **WaveRider** | Channel-hopping target pursuit |
 | **WordlistManager** | Wordlist management for cracking |
-| **ChannelCongestion** | Analyzes WiFi channel congestion, scores each channel, recommends optimal operating channel |
-| **HeartbeatMonitor** | Continuous health monitoring for long engagements — alerts on CPU, memory, temp, interface degradation |
 
-### 🛡️ Blue Team (7 payloads)
+### 🛡️ Blue Team (8 payloads)
 Defensive WiFi security monitoring and audit tools.
 
 | Payload | Description |
 |---------|-------------|
-| **WiFiGuard** | Continuous WiFi security monitor — detects rogue APs, evil twins, deauth attacks |
-| **ComplianceAuditor** | Audits WiFi networks against security best practices (WPA3, WEP, open) |
-| **RogueDetector** | Hunts for rogue APs, evil twins, and unauthorized SSIDs |
-| **SignalMapper** | Multi-point WiFi signal strength mapper for coverage analysis |
 | **AuditReporter** | Generates professional WiFi security audit reports with risk scoring |
-| **RogueUSBGuard** | Monitors USB ports for unauthorized device insertions — defends Pineapple from BadUSB/implants |
+| **ComplianceAuditor** | Audits WiFi networks against security best practices (WPA3, WEP, open) |
 | **DeauthForensics** | Captures deauth frames and fingerprints attacker tools (aireplay, mdk3/4, bully, etc.) |
+| **RogueDetector** | Hunts for rogue APs, evil twins, and unauthorized SSIDs |
+| **RogueUSBGuard** | Monitors USB ports for unauthorized device insertions — defends Pineapple from BadUSB/implants |
+| **SignalMapper** | Multi-point WiFi signal strength mapper for coverage analysis |
+| **WiFiGuard** | Continuous WiFi security monitor — detects rogue APs, evil twins, deauth attacks |
+| **WirelessIDS** | Wireless intrusion detection system |
 
 ---
 
 ## 🚀 Installation
 
-### Option 1: One-Click Install
+### Option 1: One-Click Install (Recommended)
 ```bash
 git clone https://github.com/bad-antics/nullsec-pineapple-suite
 cd nullsec-pineapple-suite
 ./install.sh
 ```
 
-### Option 2: Direct to Pineapple
+### Option 2: Direct to Pineapple via SSH
 ```bash
-ssh root@172.16.52.1
-git clone https://github.com/bad-antics/nullsec-pineapple-suite /tmp/ns
-cp -r /tmp/ns/payloads/*/* /root/payloads/user/nullsec/
-cp /tmp/ns/lib/* /root/payloads/library/
+ssh root@172.16.52.1 "cd /tmp && git clone https://github.com/bad-antics/nullsec-pineapple-suite && cd nullsec-pineapple-suite && ./install.sh"
 ```
 
-### Option 3: USB Sideload
+### Option 3: Manual Install via SSH
+```bash
+ssh root@172.16.52.1
+
+# Create directories
+mkdir -p /root/payloads/user/nullsec
+mkdir -p /root/payloads/library
+mkdir -p /mmc/root/themes/nullsec
+mkdir -p /mmc/nullsec/{loot,captures/handshakes,captures/eap,logs/ids,scheduled}
+
+# Clone and copy
+cd /tmp && git clone https://github.com/bad-antics/nullsec-pineapple-suite
+cp -r /tmp/nullsec-pineapple-suite/payloads/*/* /root/payloads/user/nullsec/
+cp /tmp/nullsec-pineapple-suite/lib/*.sh /root/payloads/library/
+cp -r /tmp/nullsec-pineapple-suite/theme/* /mmc/root/themes/nullsec/
+
+# FastBoot (optional but recommended)
+cp /tmp/nullsec-pineapple-suite/system/nullsec-fastboot /etc/init.d/
+chmod +x /etc/init.d/nullsec-fastboot
+/etc/init.d/nullsec-fastboot enable
+/etc/init.d/nullsec-fastboot start
+```
+
+### Option 4: USB Sideload
 ```bash
 # On your computer
 git clone https://github.com/bad-antics/nullsec-pineapple-suite
-# Copy to USB drive, plug into Pineapple, then:
+# Copy the repo folder to a USB drive, plug into Pineapple, then SSH in:
+
+ssh root@172.16.52.1
+
+# Create directories
+mkdir -p /root/payloads/user/nullsec
+mkdir -p /root/payloads/library
+mkdir -p /mmc/root/themes/nullsec
+mkdir -p /mmc/nullsec/{loot,captures/handshakes,captures/eap,logs/ids,scheduled}
+
+# Copy from USB
 cp -r /mnt/usb/nullsec-pineapple-suite/payloads/*/* /root/payloads/user/nullsec/
+cp /mnt/usb/nullsec-pineapple-suite/lib/*.sh /root/payloads/library/
+cp -r /mnt/usb/nullsec-pineapple-suite/theme/* /mmc/root/themes/nullsec/
+
+# FastBoot (optional but recommended)
+cp /mnt/usb/nullsec-pineapple-suite/system/nullsec-fastboot /etc/init.d/
+chmod +x /etc/init.d/nullsec-fastboot
+/etc/init.d/nullsec-fastboot enable
+/etc/init.d/nullsec-fastboot start
 ```
+
+### Factory Reset Recovery
+If you've factory-reset your Pineapple, use the full restore script to rebuild everything:
+```bash
+git clone https://github.com/bad-antics/nullsec-pineapple-suite
+cd nullsec-pineapple-suite
+./restore.sh
+```
+This installs tool dependencies (aircrack-ng, hcxdumptool, etc.), sets up SSH keys, deploys all payloads, theme, and FastBoot.
 
 ### Requirements
 - WiFi Pineapple Pager (firmware 1.0+)
 - External WiFi adapter (for monitor mode payloads)
 - `aircrack-ng` suite (pre-installed on Pager)
-- Optional: `nmap`, `hcxdumptool`, `reaver` (install via PackageManager payload)
+- Optional: `nmap`, `hcxdumptool`, `reaver` (install via PackageManager payload or `restore.sh`)
 
 ---
 
@@ -323,22 +388,24 @@ TrafficMask → StealthRecon → HiddenNetFinder → PasspointScanner
 nullsec-pineapple-suite/
 ├── payloads/
 │   ├── alerts/        # 🚨 7 monitoring & alerting payloads
-│   ├── attack/        # ⚔️ 16 offensive payloads
-│   ├── automation/    # 🤖 4 automated attack chains
-│   ├── capture/       # 🔐 6 credential/handshake capture
-│   ├── exfiltration/  # 📤 4 data extraction tools
-│   ├── games/         # 🎮 3 entertainment payloads
+│   ├── attack/        # ⚔️ 19 offensive payloads
+│   ├── automation/    # 🤖 5 automated attack chains
+│   ├── capture/       # 🔐 8 credential/handshake capture
+│   ├── exfiltration/  # 📤 5 data extraction tools
+│   ├── games/         # 🎮 4 entertainment payloads
 │   ├── interception/  # 🕵️ 5 MITM/traffic interception
 │   ├── pranks/        # 🎪 5 harmless WiFi pranks
-│   ├── recon/         # 🔍 18 reconnaissance payloads
+│   ├── recon/         # 🔍 23 reconnaissance payloads
 │   ├── remote/        # 🔗 4 remote access tools
-│   ├── social/        # 🎭 5 social engineering
-│   ├── stealth/       # 👻 9 stealth operations
-│   ├── utility/       # 🔧 13 system management tools
-│   └── blue-team/     # 🛡️ 7 defensive security tools
+│   ├── social/        # 🎭 6 social engineering
+│   ├── stealth/       # 👻 11 stealth operations
+│   ├── utility/       # 🔧 15 system management tools
+│   └── blue-team/     # 🛡️ 8 defensive security tools
 ├── lib/               # Core libraries & helpers
-├── theme/             # NullSec Pager theme
+├── system/            # FastBoot optimizer init script
+├── theme/             # NullSec Pager theme (112 components)
 ├── install.sh         # One-click installer
+├── restore.sh         # Full factory-reset recovery script
 ├── LICENSE
 └── README.md
 ```
@@ -386,12 +453,13 @@ The authors assume no liability for misuse of these tools.
 
 | Metric | Value |
 |--------|-------|
-| Total Payloads | **106** |
+| Total Payloads | **125** |
 | Categories | **14** |
-| Largest Category | Recon (18) |
+| Largest Category | Recon (23) |
+| Theme Components | 112 |
 | Average Payload Size | ~150 lines |
 | Platform | WiFi Pineapple Pager |
-| Last Updated | March 2026 |
+| Last Updated | April 2026 |
 
 ---
 
@@ -402,6 +470,6 @@ MIT License — See [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  <b>NullSec</b> — <i>106 ways to own the airwaves</i> 🍍<br>
+  <b>NullSec</b> — <i>125 ways to own the airwaves</i> 🍍<br>
   <a href="https://github.com/bad-antics">github.com/bad-antics</a>
 </p>
