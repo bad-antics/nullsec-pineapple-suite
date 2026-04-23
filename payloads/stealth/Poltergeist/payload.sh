@@ -6,6 +6,11 @@
 # Makes devices behave erratically - random disconnects, weird SSIDs appearing
 #═══════════════════════════════════════════════════════════════════════════════
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 source /mmc/nullsec/lib/nullsec-scanner.sh 2>/dev/null
 
 LOOT_DIR="/mmc/nullsec/poltergeist"
@@ -40,7 +45,7 @@ MODE=$(NUMBER_PICKER "Mode (1-4):" 4)
 INTENSITY=$(NUMBER_PICKER "Intensity (1-10):" 5)
 DURATION=$(NUMBER_PICKER "Duration (sec):" 120)
 
-INTERFACE="wlan0"
+INTERFACE="$IFACE"
 airmon-ng check kill 2>/dev/null
 airmon-ng start $INTERFACE >/dev/null 2>&1
 MON_IF="${INTERFACE}mon"

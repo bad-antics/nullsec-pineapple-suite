@@ -4,6 +4,11 @@
 # Description: Creates custom captive portal for credential harvesting
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/captiveportal"
 mkdir -p "$LOOT_DIR"
 
@@ -39,13 +44,13 @@ fi
 
 # Find AP interface
 AP_IFACE=""
-for i in wlan0 wlan1 br-lan; do
+for i in $IFACE wlan1 br-lan; do
     if iwinfo "$i" info 2>/dev/null | grep -q "Mode: Master"; then
         AP_IFACE="$i"
         break
     fi
 done
-[ -z "$AP_IFACE" ] && AP_IFACE="wlan0"
+[ -z "$AP_IFACE" ] && AP_IFACE="$IFACE"
 
 PORTAL_IP=$(ip addr show "$AP_IFACE" | grep "inet " | awk '{print $2}' | cut -d'/' -f1)
 PORTAL_IP=${PORTAL_IP:-"172.16.42.1"}

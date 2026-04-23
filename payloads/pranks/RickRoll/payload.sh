@@ -4,6 +4,11 @@
 # Description: Create open AP that rickrolls everyone who connects
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "NULLSEC RICKROLL AP
 
 Creates an open WiFi network
@@ -12,8 +17,6 @@ Rick Astley's 'Never Gonna
 Give You Up'!
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 SSID=$(TEXT_PICKER "AP Name:" "Free Public WiFi")
 case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) SSID="Free Public WiFi" ;; esac
@@ -34,7 +37,7 @@ killall hostapd dnsmasq lighttpd 2>/dev/null
 
 # Setup AP
 cat > /tmp/rickroll_hostapd.conf << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$SSID
 hw_mode=g
@@ -46,11 +49,11 @@ EOF
 hostapd /tmp/rickroll_hostapd.conf &
 sleep 2
 
-ifconfig wlan0 10.0.0.1 netmask 255.255.255.0 up
+ifconfig $IFACE 10.0.0.1 netmask 255.255.255.0 up
 
 # DNS redirect all to us
 cat > /tmp/rickroll_dnsmasq.conf << EOF
-interface=wlan0
+interface=$IFACE
 dhcp-range=10.0.0.10,10.0.0.100,12h
 address=/#/10.0.0.1
 EOF

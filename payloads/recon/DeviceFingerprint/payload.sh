@@ -4,6 +4,11 @@
 # Description: Identify device types from MAC addresses and probes
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/fingerprints"
 mkdir -p "$LOOT_DIR"
 
@@ -18,8 +23,6 @@ Identify device types:
 - IoT devices
 
 Press OK to scan."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 DURATION=$(NUMBER_PICKER "Scan duration (sec):" 60)
 case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) DURATION=60 ;; esac
@@ -37,11 +40,11 @@ Press OK to begin.")
 SPINNER_START "Scanning devices..."
 
 # Capture on all channels
-timeout $DURATION airodump-ng wlan0 --write-interval 5 -w /tmp/fpscan --output-format csv 2>/dev/null &
+timeout $DURATION airodump-ng $IFACE --write-interval 5 -w /tmp/fpscan --output-format csv 2>/dev/null &
 SCAN_PID=$!
 
 # Also capture probes
-timeout $DURATION tcpdump -i wlan0 -e type mgt subtype probe-req 2>/dev/null > /tmp/fp_probes.txt &
+timeout $DURATION tcpdump -i $IFACE -e type mgt subtype probe-req 2>/dev/null > /tmp/fp_probes.txt &
 PROBE_PID=$!
 
 sleep $DURATION

@@ -4,6 +4,11 @@
 # Description: Completely passive WiFi reconnaissance
 # Category: nullsec/stealth
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/stealth"
 mkdir -p "$LOOT_DIR"
 
@@ -20,8 +25,6 @@ Collects:
 - Signal analysis
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 DURATION=$(NUMBER_PICKER "Duration (minutes):" 10)
 case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) DURATION=10 ;; esac
@@ -53,16 +56,16 @@ CAP_FILE="/tmp/stealth_cap"
 
 # Start passive capture
 if [ "$CHANNEL_HOP" = "$DUCKYSCRIPT_USER_CONFIRMED" ]; then
-    timeout $DURATION_SEC airodump-ng wlan0 --write-interval 5 -w "$CAP_FILE" --output-format csv 2>/dev/null &
+    timeout $DURATION_SEC airodump-ng $IFACE --write-interval 5 -w "$CAP_FILE" --output-format csv 2>/dev/null &
 else
-    iwconfig wlan0 channel $CHANNEL
-    timeout $DURATION_SEC airodump-ng wlan0 -c $CHANNEL --write-interval 5 -w "$CAP_FILE" --output-format csv 2>/dev/null &
+    iwconfig $IFACE channel $CHANNEL
+    timeout $DURATION_SEC airodump-ng $IFACE -c $CHANNEL --write-interval 5 -w "$CAP_FILE" --output-format csv 2>/dev/null &
 fi
 
 CAP_PID=$!
 
 # Also capture probe requests
-tcpdump -i wlan0 -e type mgt subtype probe-req -l 2>/dev/null > /tmp/probes.txt &
+tcpdump -i $IFACE -e type mgt subtype probe-req -l 2>/dev/null > /tmp/probes.txt &
 PROBE_PID=$!
 
 sleep $DURATION_SEC

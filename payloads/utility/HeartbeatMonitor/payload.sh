@@ -4,6 +4,11 @@
 # Description: Continuous health monitoring for long engagements — alerts on CPU, memory, temp, storage, and interface degradation
 # Category: nullsec/utility
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/heartbeat"
 mkdir -p "$LOOT_DIR"
 
@@ -171,14 +176,14 @@ while [ $(date +%s) -lt $END_TIME ]; do
     fi
 
     # --- WiFi Interface Status ---
-    WLAN0_STATE=$(cat /sys/class/net/wlan0/operstate 2>/dev/null || echo "absent")
+    WLAN0_STATE=$(cat /sys/class/net/$IFACE/operstate 2>/dev/null || echo "absent")
     WLAN1_STATE=$(cat /sys/class/net/wlan1/operstate 2>/dev/null || echo "absent")
 
     # Detect interface state changes
     if [ -n "$PREV_WLAN0_STATE" ] && [ "$WLAN0_STATE" != "$PREV_WLAN0_STATE" ]; then
         IFACE_DROPS=$((IFACE_DROPS + 1))
-        ALERT_MSG="${ALERT_MSG}wlan0:$WLAN0_STATE "
-        echo "[$NOW] ALERT: wlan0 state changed: $PREV_WLAN0_STATE -> $WLAN0_STATE" >> "$ALERT_LOG"
+        ALERT_MSG="${ALERT_MSG}$IFACE:$WLAN0_STATE "
+        echo "[$NOW] ALERT: $IFACE state changed: $PREV_WLAN0_STATE -> $WLAN0_STATE" >> "$ALERT_LOG"
     fi
     if [ -n "$PREV_WLAN1_STATE" ] && [ "$WLAN1_STATE" != "$PREV_WLAN1_STATE" ]; then
         IFACE_DROPS=$((IFACE_DROPS + 1))
@@ -211,7 +216,7 @@ MEM: ${MEM_PCT}% used
 Load: $LOAD_1
 Root: ${STORAGE_ROOT}%
 SD: ${STORAGE_MMC}%
-wlan0: $WLAN0_STATE
+$IFACE: $WLAN0_STATE
 wlan1: $WLAN1_STATE
 
 Press OK to continue
@@ -288,7 +293,7 @@ Memory:    ${MEM_PCT}% (${MEM_USED}/${MEM_TOTAL}MB)
 Load:      $LOAD_1 / $LOAD_5 / $LOAD_15
 Root:      ${STORAGE_ROOT}%
 SD Card:   ${STORAGE_MMC}%
-wlan0:     $WLAN0_STATE
+$IFACE:     $WLAN0_STATE
 wlan1:     $WLAN1_STATE
 Processes: $PROC_COUNT
 Uptime:    ${UPTIME_SEC}s

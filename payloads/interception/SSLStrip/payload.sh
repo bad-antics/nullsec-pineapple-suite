@@ -4,6 +4,11 @@
 # Description: SSL stripping attack to downgrade HTTPS to HTTP
 # Category: nullsec/interception
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/sslstrip"
 mkdir -p "$LOOT_DIR"
 
@@ -20,7 +25,7 @@ Press OK to configure."
 
 # Find interface
 IFACE=""
-for i in br-lan eth0 wlan1 wlan0; do
+for i in br-lan eth0 wlan1 $IFACE; do
     [ -d "/sys/class/net/$i" ] && IFACE=$i && break
 done
 [ -z "$IFACE" ] && { ERROR_DIALOG "No interface found!"; exit 1; }

@@ -6,6 +6,11 @@
 # Optimize Pager boot time and runtime performance
 #═══════════════════════════════════════════════════════════════════════════════
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 CONFIG_DIR="/mmc/nullsec"
 OPTIMIZE_SCRIPT="/etc/init.d/nullsec-optimize"
 mkdir -p "$CONFIG_DIR"
@@ -88,7 +93,7 @@ optimize_memory() {
 
 optimize_wifi() {
     # Set WiFi to performance mode
-    iw dev wlan0 set power_save off 2>/dev/null
+    iw dev $IFACE set power_save off 2>/dev/null
     
     # Disable NetworkManager interference
     pkill -f "NetworkManager\|wpa_supplicant" 2>/dev/null
@@ -162,7 +167,7 @@ performance.
     5) # Status
         CPU_GOV=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null || echo "N/A")
         FREE_MEM=$(free -m 2>/dev/null | awk '/Mem:/ {print $4}' || echo "N/A")
-        POWER_SAVE=$(iw dev wlan0 get power_save 2>/dev/null | awk '{print $NF}' || echo "N/A")
+        POWER_SAVE=$(iw dev $IFACE get power_save 2>/dev/null | awk '{print $NF}' || echo "N/A")
         PROMPT "SYSTEM STATUS
 ━━━━━━━━━━━━━━━━━━━━━━━━━
 CPU Governor: $CPU_GOV
@@ -179,7 +184,7 @@ default settings."
         if [ $? -eq 0 ]; then
             rm -f "$OPTIMIZE_SCRIPT"
             echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null
-            iw dev wlan0 set power_save on 2>/dev/null
+            iw dev $IFACE set power_save on 2>/dev/null
             PROMPT "Reset to defaults.
 
 Reboot recommended."

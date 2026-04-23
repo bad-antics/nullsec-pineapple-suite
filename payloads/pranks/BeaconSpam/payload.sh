@@ -4,6 +4,11 @@
 # Description: Massive beacon frame spam with custom messages
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "BEACON SPAM
 
 Mass broadcast beacon
@@ -14,8 +19,6 @@ Fill the WiFi list with
 your custom messages!
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 PROMPT "SELECT MESSAGE PACK:
 
@@ -130,9 +133,9 @@ Press OK to begin!")
 LOG "Starting beacon spam..."
 
 if command -v mdk4 >/dev/null 2>&1; then
-    mdk4 wlan0 b -f /tmp/beacon_ssids.txt -c 1,6,11 &
+    mdk4 $IFACE b -f /tmp/beacon_ssids.txt -c 1,6,11 &
 elif command -v mdk3 >/dev/null 2>&1; then
-    mdk3 wlan0 b -f /tmp/beacon_ssids.txt -c 1,6,11 &
+    mdk3 $IFACE b -f /tmp/beacon_ssids.txt -c 1,6,11 &
 else
     ERROR_DIALOG "mdk3/mdk4 required!"
     exit 1

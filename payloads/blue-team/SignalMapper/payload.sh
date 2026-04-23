@@ -4,6 +4,11 @@
 # Description: Maps WiFi signal strength from multiple sample points to identify coverage gaps
 # Category: nullsec/blue-team
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "SIGNAL MAPPER
 
 Multi-point WiFi signal
@@ -16,8 +21,6 @@ Move device between scans
 to map different areas.
 
 Press OK to start."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 OUTDIR="/mmc/nullsec/blue-team/signal-mapper"
 mkdir -p "$OUTDIR"
@@ -36,7 +39,7 @@ for POINT in 1 2 3; do
     fi
 
     SPINNER_START "Point $POINT/$SAMPLES (${SAMPLE_TIME}s)..."
-    timeout $SAMPLE_TIME airodump-ng wlan0 -w /tmp/sigmap_${POINT} --output-format csv 2>/dev/null
+    timeout $SAMPLE_TIME airodump-ng $IFACE -w /tmp/sigmap_${POINT} --output-format csv 2>/dev/null
     SPINNER_STOP
 
     CSV="/tmp/sigmap_${POINT}-01.csv"

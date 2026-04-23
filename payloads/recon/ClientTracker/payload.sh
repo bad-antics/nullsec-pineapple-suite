@@ -4,6 +4,11 @@
 # Description: Track a specific device across networks
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/tracking"
 mkdir -p "$LOOT_DIR"
 
@@ -17,8 +22,6 @@ Track phones, laptops,
 IoT devices, etc.
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 TARGET_MAC=$(MAC_PICKER "Target Device MAC:")
 case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) 
@@ -60,16 +63,16 @@ LOG "Tracking $TARGET_MAC..."
 while [ $(date +%s) -lt $END_TIME ]; do
     # Quick scan all channels
     for CH in 1 6 11; do
-        iwconfig wlan0 channel $CH 2>/dev/null
+        iwconfig $IFACE channel $CH 2>/dev/null
         
         # Capture for 2 seconds
-        timeout 2 tcpdump -i wlan0 -c 50 -e 2>/dev/null | grep -i "$TARGET_MAC" > /tmp/track_result.txt
+        timeout 2 tcpdump -i $IFACE -c 50 -e 2>/dev/null | grep -i "$TARGET_MAC" > /tmp/track_result.txt
         
         if [ -s /tmp/track_result.txt ]; then
             TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
             
             # Try to get BSSID
-            BSSID=$(timeout 3 airodump-ng wlan0 --write-interval 1 -w /tmp/quickscan --output-format csv 2>/dev/null; grep -i "$TARGET_MAC" /tmp/quickscan*.csv 2>/dev/null | head -1 | cut -d',' -f6 | tr -d ' ')
+            BSSID=$(timeout 3 airodump-ng $IFACE --write-interval 1 -w /tmp/quickscan --output-format csv 2>/dev/null; grep -i "$TARGET_MAC" /tmp/quickscan*.csv 2>/dev/null | head -1 | cut -d',' -f6 | tr -d ' ')
             
             if [ "$LAST_SEEN" != "$CH-$BSSID" ]; then
                 DETECTIONS=$((DETECTIONS + 1))

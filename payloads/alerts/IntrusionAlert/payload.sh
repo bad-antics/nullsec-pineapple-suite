@@ -4,6 +4,11 @@
 # Description: Network intrusion detection for port scans, ARP spoofing, and suspicious traffic
 # Category: nullsec/alerts
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/intrusionalert"
 mkdir -p "$LOOT_DIR"
 
@@ -22,7 +27,7 @@ Press OK to configure."
 
 # Detect network interface
 NET_IF=""
-for iface in br-lan eth0 wlan0; do
+for iface in br-lan eth0 $IFACE; do
     [ -d "/sys/class/net/$iface" ] && NET_IF="$iface" && break
 done
 [ -z "$NET_IF" ] && { ERROR_DIALOG "No network interface!"; exit 1; }

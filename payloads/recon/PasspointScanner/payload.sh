@@ -4,6 +4,11 @@
 # Description: Scan for Passpoint/Hotspot 2.0 and enterprise WiFi configurations
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/passpoint"
 mkdir -p "$LOOT_DIR"
 
@@ -23,7 +28,7 @@ Press OK to configure."
 
 # Find monitor interface
 MONITOR_IF=""
-for iface in wlan1mon wlan2mon mon0 wlan1 wlan0; do
+for iface in wlan1mon wlan2mon mon0 wlan1 $IFACE; do
     [ -d "/sys/class/net/$iface" ] && MONITOR_IF="$iface" && break
 done
 [ -z "$MONITOR_IF" ] && { ERROR_DIALOG "No interface found!"; exit 1; }

