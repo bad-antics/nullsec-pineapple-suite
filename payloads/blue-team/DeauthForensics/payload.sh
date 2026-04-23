@@ -4,6 +4,11 @@
 # Description: Captures and fingerprints deauthentication attacks — identifies attacker tools by frame patterns
 # Category: nullsec/blue-team
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/deauthforensics"
 mkdir -p "$LOOT_DIR"
 
@@ -32,7 +37,7 @@ Press OK to configure."
 
 # Check for monitor mode capable interface
 IFACE=""
-for ifc in wlan1mon wlan1 wlan0mon wlan0; do
+for ifc in wlan1mon wlan1 wlan0mon $IFACE; do
     if iw dev "$ifc" info >/dev/null 2>&1; then
         IFACE="$ifc"
         break

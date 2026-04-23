@@ -4,6 +4,11 @@
 # Description: Changes MAC address on interfaces with multiple modes
 # Category: nullsec/utility
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/macchanger"
 mkdir -p "$LOOT_DIR"
 
@@ -39,8 +44,8 @@ Total: $IFACE_COUNT
 Press OK to select
 interface."
 
-TARGET_IFACE=$(TEXT_PICKER "Interface:" "wlan0")
-case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) TARGET_IFACE="wlan0" ;; esac
+TARGET_IFACE=$(TEXT_PICKER "Interface:" "$IFACE")
+case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) TARGET_IFACE="$IFACE" ;; esac
 
 if [ ! -d "/sys/class/net/$TARGET_IFACE" ]; then
     ERROR_DIALOG "Interface $TARGET_IFACE

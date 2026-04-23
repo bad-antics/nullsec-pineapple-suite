@@ -4,6 +4,11 @@
 # Description: Blue-team WiFi security monitor — scans for rogue APs, evil twins, and deauth attacks
 # Category: nullsec/blue-team
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "WIFI GUARD
 
 Continuous blue-team WiFi
@@ -19,8 +24,6 @@ Duration: 60 seconds
 
 Press OK to start."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 OUTDIR="/mmc/nullsec/blue-team/wifi-guard"
 mkdir -p "$OUTDIR"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -32,7 +35,7 @@ touch "$ALERTLOG"
 
 # Baseline scan (10s)
 SPINNER_START "Capturing AP baseline..."
-timeout 10 airodump-ng wlan0 -w /tmp/wg_baseline --output-format csv 2>/dev/null
+timeout 10 airodump-ng $IFACE -w /tmp/wg_baseline --output-format csv 2>/dev/null
 SPINNER_STOP
 
 grep -E "^([0-9A-Fa-f]{2}:){5}" /tmp/wg_baseline-01.csv 2>/dev/null | \
@@ -44,7 +47,7 @@ SPINNER_START "Monitoring ($BASELINE_COUNT known APs)..."
 # Monitor for 60 seconds in 10-second sweeps
 ALERT_COUNT=0
 for i in 1 2 3 4 5 6; do
-    timeout 8 airodump-ng wlan0 -w /tmp/wg_scan --output-format csv 2>/dev/null
+    timeout 8 airodump-ng $IFACE -w /tmp/wg_scan --output-format csv 2>/dev/null
     sleep 1
 
     CURRENT=$(grep -E "^([0-9A-Fa-f]{2}:){5}" /tmp/wg_scan-01.csv 2>/dev/null | \

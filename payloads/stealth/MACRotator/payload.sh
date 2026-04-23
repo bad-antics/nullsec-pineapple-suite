@@ -4,6 +4,11 @@
 # Description: Automatically rotate MAC address at configurable intervals
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "MAC ROTATOR
 ━━━━━━━━━━━━━━━━━━━━━━━━━
 Automatically change MAC
@@ -12,7 +17,7 @@ avoid tracking.
 
 Press OK to configure."
 
-CURRENT_MAC=$(cat /sys/class/net/wlan0/address 2>/dev/null || echo "unknown")
+CURRENT_MAC=$(cat /sys/class/net/$IFACE/address 2>/dev/null || echo "unknown")
 PROMPT "Current MAC:\n$CURRENT_MAC"
 
 INTERVAL=$(NUMBER_PICKER "Rotate interval (sec):" 60)
@@ -24,7 +29,7 @@ case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) ROTATIONS=10 ;; esac
 
 resp=$(CONFIRMATION_DIALOG "MAC Rotation Config:
 ━━━━━━━━━━━━━━━━━━━━━━━━━
-Interface: wlan0
+Interface: $IFACE
 Interval: ${INTERVAL}s
 Rotations: $([ $ROTATIONS -eq 0 ] && echo Infinite || echo $ROTATIONS)
 
@@ -38,9 +43,9 @@ generate_mac() {
 COUNT=0
 while true; do
     NEW_MAC=$(generate_mac)
-    ip link set wlan0 down 2>/dev/null
-    ip link set wlan0 address "$NEW_MAC" 2>/dev/null
-    ip link set wlan0 up 2>/dev/null
+    ip link set $IFACE down 2>/dev/null
+    ip link set $IFACE address "$NEW_MAC" 2>/dev/null
+    ip link set $IFACE up 2>/dev/null
     COUNT=$((COUNT + 1))
     LOG "MAC #$COUNT: $NEW_MAC"
     
@@ -48,7 +53,7 @@ while true; do
     sleep "$INTERVAL"
 done
 
-FINAL_MAC=$(cat /sys/class/net/wlan0/address 2>/dev/null)
+FINAL_MAC=$(cat /sys/class/net/$IFACE/address 2>/dev/null)
 PROMPT "MAC ROTATION COMPLETE
 ━━━━━━━━━━━━━━━━━━━━━━━━━
 Rotations: $COUNT

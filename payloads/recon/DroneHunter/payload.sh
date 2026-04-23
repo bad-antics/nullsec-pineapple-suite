@@ -4,6 +4,11 @@
 # Description: Detect and identify nearby drones by WiFi
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 # Known drone OUIs and SSIDs
 DRONE_OUIS="60:60:1F:DJI
 34:D2:62:DJI
@@ -35,7 +40,7 @@ Autel, Yuneec, and more.
 
 Press OK to continue."
 
-INTERFACE="wlan0"
+INTERFACE="$IFACE"
 
 # Prepare
 airmon-ng check kill 2>/dev/null

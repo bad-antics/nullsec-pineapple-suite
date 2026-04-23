@@ -4,6 +4,11 @@
 # Description: WiFi signal strength game - find the strongest signal source
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "SIGNAL HUNT
 ━━━━━━━━━━━━━━━━━━━━━━━━━
 Find the strongest
@@ -16,7 +21,7 @@ real-time.
 Press OK to start."
 
 MONITOR_IF=""
-for iface in wlan1mon wlan2mon wlan1 wlan0; do
+for iface in wlan1mon wlan2mon wlan1 $IFACE; do
     [ -d "/sys/class/net/$iface" ] && MONITOR_IF="$iface" && break
 done
 [ -z "$MONITOR_IF" ] && ERROR_DIALOG "No WiFi interface!" && exit 1

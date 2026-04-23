@@ -4,6 +4,11 @@
 # Description: Simultaneous deauth attack on all networks
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "MASS DEAUTH
 
 Deauth ALL visible
@@ -14,7 +19,7 @@ For authorized testing only.
 
 Press OK to continue."
 
-INTERFACE="wlan0"
+INTERFACE="$IFACE"
 CHANNEL=$(TEXT_PICKER "Channel (1-14 or all):" "all")
 
 resp=$(CONFIRMATION_DIALOG "THIS WILL ATTACK

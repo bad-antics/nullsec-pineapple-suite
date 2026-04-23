@@ -4,6 +4,11 @@
 # Description: Track signal strength to locate WiFi sources
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "SIGNAL TRACKER
 
 Track WiFi signal strength
@@ -15,7 +20,7 @@ devices or rogue APs.
 
 Press OK to continue."
 
-INTERFACE="wlan0"
+INTERFACE="$IFACE"
 MODE=$(NUMBER_PICKER "Track: 1=AP 2=Client" 1)
 
 # Stop interfering processes

@@ -4,6 +4,11 @@
 # Description: Exploits probe requests to lure clients by creating matching APs
 # Category: nullsec/attack
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/probeattack"
 mkdir -p "$LOOT_DIR"
 
@@ -47,10 +52,10 @@ airmon-ng start wlan1"; exit 1; }
 
 # Find AP-capable interface
 AP_IFACE=""
-for iface in wlan0 wlan2; do
+for iface in $IFACE wlan2; do
     [ -d "/sys/class/net/$iface" ] && AP_IFACE="$iface" && break
 done
-[ -z "$AP_IFACE" ] && AP_IFACE="wlan0"
+[ -z "$AP_IFACE" ] && AP_IFACE="$IFACE"
 
 PROMPT "ATTACK MODE:
 

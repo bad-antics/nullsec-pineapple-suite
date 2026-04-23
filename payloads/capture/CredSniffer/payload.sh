@@ -4,6 +4,11 @@
 # Description: Passive credential capture from network traffic
 # Category: nullsec/capture
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "CREDENTIAL SNIFFER
 
 Passively capture
@@ -16,7 +21,7 @@ credentials from:
 
 Press OK to continue."
 
-INTERFACE="wlan0"
+INTERFACE="$IFACE"
 
 PROMPT "SNIFF MODE:
 

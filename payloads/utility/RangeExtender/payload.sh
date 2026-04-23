@@ -4,6 +4,11 @@
 # Description: Connect to network and broadcast spoofed hotspot with internet
 # Category: nullsec/utility
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "NULLSEC RANGE EXTENDER
 
 Connect to your network
@@ -19,8 +24,6 @@ Internet passes through!
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 PROMPT "SELECT SOURCE:
 
 1. Scan for network
@@ -34,7 +37,7 @@ SOURCE_MODE=$(NUMBER_PICKER "Source (1-3):" 1)
 case $SOURCE_MODE in
     1) # Scan
         SPINNER_START "Scanning networks..."
-        timeout 12 airodump-ng wlan0 --encrypt wpa --write-interval 1 -w /tmp/extscan --output-format csv 2>/dev/null
+        timeout 12 airodump-ng $IFACE --encrypt wpa --write-interval 1 -w /tmp/extscan --output-format csv 2>/dev/null
         SPINNER_STOP
         
         NET_COUNT=$(grep -c "WPA" /tmp/extscan*.csv 2>/dev/null || echo 0)
@@ -86,7 +89,7 @@ case $SSID_MODE in
         ;;
     2) # Clone nearby
         SPINNER_START "Finding SSIDs..."
-        timeout 8 airodump-ng wlan0 --write-interval 1 -w /tmp/clonescan --output-format csv 2>/dev/null
+        timeout 8 airodump-ng $IFACE --write-interval 1 -w /tmp/clonescan --output-format csv 2>/dev/null
         SPINNER_STOP
         
         CLONE_COUNT=$(grep -c "WPA\|OPN" /tmp/clonescan*.csv 2>/dev/null || echo 0)
@@ -164,14 +167,14 @@ EOF
 # Need two interfaces - check if wlan1 exists or use virtual
 if [ -d "/sys/class/net/wlan1" ]; then
     CLIENT_IF="wlan1"
-    AP_IF="wlan0"
+    AP_IF="$IFACE"
 else
     # Create virtual interface
-    iw dev wlan0 interface add wlan0_ap type __ap 2>/dev/null || {
+    iw dev $IFACE interface add wlan0_ap type __ap 2>/dev/null || {
         ERROR_DIALOG "Cannot create AP interface. Need 2 WiFi adapters or AP mode support."
         exit 1
     }
-    CLIENT_IF="wlan0"
+    CLIENT_IF="$IFACE"
     AP_IF="wlan0_ap"
 fi
 

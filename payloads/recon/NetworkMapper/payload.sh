@@ -4,6 +4,11 @@
 # Description: Detailed reconnaissance of a specific network
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/recon"
 mkdir -p "$LOOT_DIR"
 
@@ -21,8 +26,6 @@ Collects:
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 PROMPT "SELECT TARGET:
 
 1. Scan and select
@@ -35,7 +38,7 @@ MODE=$(NUMBER_PICKER "Mode (1-3):" 1)
 
 if [ "$MODE" -eq 1 ]; then
     SPINNER_START "Scanning networks..."
-    timeout 10 airodump-ng wlan0 --write-interval 1 -w /tmp/netscan --output-format csv 2>/dev/null
+    timeout 10 airodump-ng $IFACE --write-interval 1 -w /tmp/netscan --output-format csv 2>/dev/null
     SPINNER_STOP
     
     # Count networks
@@ -65,7 +68,7 @@ elif [ "$MODE" -eq 2 ]; then
 elif [ "$MODE" -eq 3 ]; then
     SSID=$(TEXT_PICKER "Target SSID:" "")
     SPINNER_START "Finding network..."
-    timeout 10 airodump-ng wlan0 --essid "$SSID" --write-interval 1 -w /tmp/ssidscan --output-format csv 2>/dev/null
+    timeout 10 airodump-ng $IFACE --essid "$SSID" --write-interval 1 -w /tmp/ssidscan --output-format csv 2>/dev/null
     SPINNER_STOP
     BSSID=$(grep "$SSID" /tmp/ssidscan*.csv 2>/dev/null | head -1 | cut -d',' -f1 | tr -d ' ')
     CHANNEL=$(grep "$SSID" /tmp/ssidscan*.csv 2>/dev/null | head -1 | cut -d',' -f4 | tr -d ' ')
@@ -89,10 +92,10 @@ Press OK to start.")
 LOG "Mapping $SSID..."
 
 # Lock to target channel
-iwconfig wlan0 channel $CHANNEL
+iwconfig $IFACE channel $CHANNEL
 
 # Deep scan
-airodump-ng wlan0 --bssid "$BSSID" -c $CHANNEL --write-interval 1 -w /tmp/deepmap --output-format csv &
+airodump-ng $IFACE --bssid "$BSSID" -c $CHANNEL --write-interval 1 -w /tmp/deepmap --output-format csv &
 SCAN_PID=$!
 
 sleep $DURATION

@@ -4,6 +4,11 @@
 # Description: Audits WiFi networks against security best practices — WPA3, WEP, open networks, WPS
 # Category: nullsec/blue-team
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "COMPLIANCE AUDITOR
 
 WiFi security policy audit.
@@ -18,15 +23,13 @@ Scan: 30 seconds
 
 Press OK to audit."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 OUTDIR="/mmc/nullsec/blue-team/compliance"
 mkdir -p "$OUTDIR"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 REPORT="$OUTDIR/audit_${TIMESTAMP}.txt"
 
 SPINNER_START "Scanning all channels (30s)..."
-timeout 30 airodump-ng wlan0 -w /tmp/compliance --output-format csv 2>/dev/null
+timeout 30 airodump-ng $IFACE -w /tmp/compliance --output-format csv 2>/dev/null
 SPINNER_STOP
 
 CSV="/tmp/compliance-01.csv"

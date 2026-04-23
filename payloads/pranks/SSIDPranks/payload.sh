@@ -4,6 +4,11 @@
 # Description: Broadcast funny/scary SSID names
 # Category: nullsec
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "NULLSEC SSID PRANKS
 
 Broadcast hilarious or
@@ -15,8 +20,6 @@ create your own.
 Press OK to configure."
 
 # Check for wlan0
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 # SSID Packs
 PROMPT "SELECT SSID PACK:
 
@@ -121,7 +124,7 @@ echo "$SSIDS" | while read -r ssid; do
     
     # Create hostapd config
     cat > "/tmp/prank_${SSID_COUNT}.conf" << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$ssid
 hw_mode=g
@@ -134,13 +137,13 @@ done
 # Use mdk3/mdk4 if available for mass beacons
 if command -v mdk4 >/dev/null 2>&1; then
     echo "$SSIDS" > /tmp/ssid_list.txt
-    timeout $DURATION mdk4 wlan0 b -f /tmp/ssid_list.txt -c $CHANNEL &
+    timeout $DURATION mdk4 $IFACE b -f /tmp/ssid_list.txt -c $CHANNEL &
     MDK_PID=$!
     sleep $DURATION
     kill $MDK_PID 2>/dev/null
 elif command -v mdk3 >/dev/null 2>&1; then
     echo "$SSIDS" > /tmp/ssid_list.txt
-    timeout $DURATION mdk3 wlan0 b -f /tmp/ssid_list.txt -c $CHANNEL &
+    timeout $DURATION mdk3 $IFACE b -f /tmp/ssid_list.txt -c $CHANNEL &
     MDK_PID=$!
     sleep $DURATION
     kill $MDK_PID 2>/dev/null
@@ -148,7 +151,7 @@ else
     # Fallback: use hostapd (single SSID only)
     FIRST_SSID=$(echo "$SSIDS" | head -1)
     cat > /tmp/prank.conf << EOF
-interface=wlan0
+interface=$IFACE
 driver=nl80211
 ssid=$FIRST_SSID
 hw_mode=g

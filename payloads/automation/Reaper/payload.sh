@@ -6,6 +6,11 @@
 # Automated WPA/WPA2 cracking pipeline - scan, capture, crack, report
 #═══════════════════════════════════════════════════════════════════════════════
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 source /mmc/nullsec/lib/nullsec-scanner.sh 2>/dev/null
 
 LOOT_DIR="/mmc/nullsec/reaper"
@@ -53,7 +58,7 @@ Channel: $SELECTED_CHANNEL
 Begin the harvest?"
 [ $? -ne 0 ] && exit 0
 
-INTERFACE="wlan0"
+INTERFACE="$IFACE"
 airmon-ng check kill 2>/dev/null
 airmon-ng start $INTERFACE >/dev/null 2>&1
 MON_IF="${INTERFACE}mon"

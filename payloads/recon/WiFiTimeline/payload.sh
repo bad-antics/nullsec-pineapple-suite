@@ -4,6 +4,11 @@
 # Description: Temporal WiFi activity mapper — tracks when APs and clients appear/disappear over time
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/timeline"
 mkdir -p "$LOOT_DIR"
 
@@ -34,7 +39,7 @@ fi
 # Interface selection
 IFACE="wlan1"
 if ! iw dev "$IFACE" info >/dev/null 2>&1; then
-    IFACE="wlan0"
+    IFACE="$IFACE"
     if ! iw dev "$IFACE" info >/dev/null 2>&1; then
         ERROR_DIALOG "No WiFi interface found!
 

@@ -63,6 +63,16 @@ ssh root@172.16.52.1 "cd /tmp && git clone https://github.com/bad-antics/nullsec
 
 After install: **Dashboard** → **Payloads** → **User** → **nullsec** → Pick any payload and run!
 
+> ⚠️  **External adapter required.** The Pineapple Pager has no internal recon
+> radio — its built-in wifi is management-only. All recon / attack / audit
+> payloads need a USB adapter (the Hak5 **MK7AC** is the supported one).
+> Plug it in before running any payload; it will usually enumerate as
+> `wlan1`. Payloads autodetect the right interface via
+> [`lib/nullsec-iface.sh`](lib/nullsec-iface.sh) and you can override with
+> `export IFACE=wlanX` or by writing `/root/.nullsec_env`. If scans come back
+> with zero results, run `ip link show; iw dev; lsusb` on the pager to
+> confirm the adapter is present.
+
 ---
 
 ## 📦 Categories

@@ -4,6 +4,11 @@
 # Description: Alerts when new clients connect to the Pineapple AP
 # Category: nullsec/alerts
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 LOOT_DIR="/mmc/nullsec/clientalert"
 mkdir -p "$LOOT_DIR"
 
@@ -22,7 +27,7 @@ Press OK to configure."
 
 # Check AP interface
 AP_IF=""
-for iface in wlan0 br-lan; do
+for iface in $IFACE br-lan; do
     [ -d "/sys/class/net/$iface" ] && AP_IF="$iface" && break
 done
 [ -z "$AP_IF" ] && { ERROR_DIALOG "No AP interface found!

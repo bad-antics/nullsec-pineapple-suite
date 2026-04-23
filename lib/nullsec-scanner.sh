@@ -6,8 +6,21 @@
 # Source this file in payloads to get auto-scan and target selection UI
 #═══════════════════════════════════════════════════════════════════════════════
 
-SCANNER_VERSION="1.0"
-SCANNER_INTERFACE="${SCANNER_INTERFACE:-wlan0}"
+SCANNER_VERSION="1.1"
+
+# Delegate interface picking to the shared autodetect helper so we don't keep
+# hardcoding wlan0 (which the Pager doesn't have a real radio on).
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null \
+    || . "$(dirname "$0")/nullsec-iface.sh" 2>/dev/null \
+    || true
+
+if [ -z "${SCANNER_INTERFACE:-}" ]; then
+    if command -v nullsec_detect_iface >/dev/null 2>&1 && nullsec_detect_iface; then
+        SCANNER_INTERFACE="$IFACE"
+    else
+        SCANNER_INTERFACE="wlan0"
+    fi
+fi
 
 # Check for monitor mode, enable if needed
 nullsec_ensure_monitor() {

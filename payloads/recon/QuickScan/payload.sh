@@ -4,6 +4,11 @@
 # Description: Fast 30-second WiFi environment scan
 # Category: nullsec/recon
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "QUICK SCAN
 
 Fast 30-second scan of
@@ -17,10 +22,8 @@ Shows:
 
 Press OK to scan."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 SPINNER_START "Scanning 30 seconds..."
-timeout 30 airodump-ng wlan0 --write-interval 5 -w /tmp/quickscan --output-format csv 2>/dev/null
+timeout 30 airodump-ng $IFACE --write-interval 5 -w /tmp/quickscan --output-format csv 2>/dev/null
 SPINNER_STOP
 
 # Count results

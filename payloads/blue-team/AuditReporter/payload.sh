@@ -4,6 +4,11 @@
 # Description: Generates a professional WiFi security audit report with risk scoring and recommendations
 # Category: nullsec/blue-team
 
+# Autodetect the right wireless interface (exports $IFACE).
+# Falls back to showing the pager error dialog if nothing is plugged in.
+. /root/payloads/library/nullsec-iface.sh 2>/dev/null || . "$(dirname "$0")/../../../lib/nullsec-iface.sh"
+nullsec_require_iface || exit 1
+
 PROMPT "AUDIT REPORTER
 
 WiFi Security Assessment
@@ -21,15 +26,13 @@ Scan: 30 seconds
 
 Press OK to audit."
 
-[ ! -d "/sys/class/net/wlan0" ] && { ERROR_DIALOG "wlan0 not found!"; exit 1; }
-
 OUTDIR="/mmc/nullsec/blue-team/audit-reporter"
 mkdir -p "$OUTDIR"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 REPORT="$OUTDIR/audit_${TIMESTAMP}.txt"
 
 SPINNER_START "Security assessment scan (30s)..."
-timeout 30 airodump-ng wlan0 -w /tmp/audit --output-format csv 2>/dev/null
+timeout 30 airodump-ng $IFACE -w /tmp/audit --output-format csv 2>/dev/null
 SPINNER_STOP
 
 CSV="/tmp/audit-01.csv"
