@@ -37,7 +37,7 @@ opkg install iw"
 fi
 
 # Interface selection
-IFACE="wlan1"
+
 if ! iw dev "$IFACE" info >/dev/null 2>&1; then
     IFACE="$IFACE"
     if ! iw dev "$IFACE" info >/dev/null 2>&1; then
