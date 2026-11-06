@@ -35,7 +35,7 @@
 ### Why NullSec Suite?
 
 | Feature | NullSec Suite | Hak5 Official | Others |
-|---------|:------------:|:--------------:|:------:|
+|---------|---------------|---------------|--------|
 | Total Payloads | **125** | 155 | 5-20 |
 | Categories | **14** | ~10 | 2-4 |
 | Attack Payloads | **19** | ~8 | 1-3 |
@@ -63,7 +63,7 @@ ssh root@172.16.52.1 "cd /tmp && git clone https://github.com/bad-antics/nullsec
 
 After install: **Dashboard** → **Payloads** → **User** → **nullsec** → Pick any payload and run!
 
-> ⚠️  **External adapter required.** The Pineapple Pager has no internal recon
+> ⚠️ **External adapter required.** The Pineapple Pager has no internal recon
 > radio — its built-in wifi is management-only. All recon / attack / audit
 > payloads need a USB adapter (the Hak5 **MK7AC** is the supported one).
 > Plug it in before running any payload; it will usually enumerate as
@@ -370,7 +370,7 @@ This installs tool dependencies (aircrack-ng, hcxdumptool, etc.), sets up SSH ke
 
 ### Targeted Mode (Recommended)
 1. Run a **Recon** payload first (QuickScan, WiFiAudit)
-2. Select a target from scan results  
+2. Select a target from scan results
 3. Run **Attack/Capture** payloads — target info auto-injected!
 
 ### Workflow Examples
